@@ -1,0 +1,13 @@
+﻿@model System.DateTime?
+@*@Html.TextBox("",String.Format("{0:d}", (Model.HasValue ? Model.Value.ToShortDateString() : string.Empty)), 
+new { @class = "datepicker" })*@
+
+<div class='input-group date datetimepicker5'>
+    @*<input type='text' class="form-control " data-date-format="DD/MM/YYYY" 
+            value='@(String.Format("{0:d}", (Model.HasValue ? Model.Value.ToShortDateString() : string.Empty)))' />*@
+    @Html.TextBox("", String.Format("{0:d}", (Model.HasValue ? Model.Value.ToShortDateString() : string.Empty)),
+        new { @class = "form-control" ,data_date_format="DD/MM/YYYY" })
+    <span class="input-group-addon">
+        <span class="glyphicon glyphicon-calendar"></span>
+    </span>
+</div>

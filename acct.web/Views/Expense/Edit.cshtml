@@ -1,0 +1,30 @@
+﻿@model acct.common.POCO.Expense
+
+@{
+    ViewBag.Title = "Edit Expense";
+    
+}
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    Html.RenderPartial("~/Views/Expense/_Form.cshtml", Model);
+    <div class="detailview">
+        <div class="row">
+            <div class="display-label">
+				@Html.LabelFor(model => model.CategoryId)
+			</div>
+        <div class="display-field">
+                @Html.DropDownList("CategoryId")
+				@Html.ValidationMessageFor(model => model.CategoryId)
+			</div>
+		</div>
+            <div class="action-links">
+                <input type="submit" class="button" value="Save" />
+                <a class="button"  href='@Url.Action("Index", "Expense")'>Back to List</a>
+            </div>
+    </div>
+    @section scripts{
+    @Scripts.Render("~/bundles/typeahead")
+}
+

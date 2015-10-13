@@ -1,0 +1,16 @@
+﻿@model PagedList.IPagedList<acct.common.POCO.Quotation>
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Quotations";
+
+}
+@using (Html.BeginForm("Search", "Quotation", FormMethod.Get, new { id = "searchForm", @class = "form-horizontal", role = "form" }))
+{
+    Html.RenderPartial("~/Views/Shared/_SearchBox.cshtml");
+}
+@Html.Partial("~/Views/Quotation/_List.cshtml", Model)
+
+<div class="action-links">
+    @Html.ActionLink("New", "Create")
+</div>

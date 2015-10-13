@@ -1,0 +1,34 @@
+﻿@model IEnumerable<acct.common.POCO.PaymentDetail>
+
+<div class="row last">
+    <div class="display-label"><h3>Payment</h3></div>
+
+    <div class="settings-item">
+        @foreach (var item in Model)
+        {
+            <div class="addressRow Rule">
+                @*<div class="right actions">
+                    <span>
+                        <a data-id='row@(item.Id)' action="removeAddress" class="addressChangeConfirmation" href="#">
+                            Remove
+                        </a>
+                    </span>
+                </div>*@
+                <div class="addressDiv" id='row@(item.Id)'>
+                    <p class="text-emphasize">@Html.DisplayFor(modelItem => item.Amount, "Currency")     (@Html.DisplayFor(modelItem => item.Payment.Date, "Date"))</p>
+                    <p>@Html.DisplayFor(modelItem => item.Payment.ReferenceNumber) @Html.DisplayFor(modelItem => item.Payment.PaymentMethod)</p>
+                </div>
+                <div style="clear:both"></div>
+            </div>
+        }
+
+        <div class="settings-item addressRow">
+            <span class="fa fa-plus-circle"></span>
+            <span>
+                <a action="newAddress" id="btn-payment" class="newAddressLink" data-toggle="modal" data-target="#dialog-payment" href="#">
+                    Received a Payment
+                </a>
+            </span>
+        </div>
+    </div>
+</div>

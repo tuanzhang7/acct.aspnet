@@ -1,0 +1,90 @@
+﻿@model PagedList.IPagedList<acct.common.POCO.Invoice>
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Invocies";
+    string drParm = Request.Params["dateRange"];
+    string statusParm = Request.Params["status"];
+
+}
+@*@using (Html.BeginForm("Search", "Invoice", FormMethod.Get, new { id = "searchForm", @class = "form-horizontal", role = "form" }))
+{
+    Html.RenderPartial("~/Views/Shared/_SearchBox.cshtml");
+}*@
+
+<div class="navbar navbar-inner block-header">
+    <div class="pull-left">
+        <form class="form-inline">
+            <div class="form-group">
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                        @if (string.IsNullOrEmpty(drParm))
+                        {
+                            <span>@EnumHelper.GetSelectList(typeof(acct.common.Helper.DateRange.DateRangeFilter))[0].Text</span>
+                        }
+                        else
+                        {
+                            <span>@EnumHelper.GetSelectList(typeof(acct.common.Helper.DateRange.DateRangeFilter))[int.Parse(drParm)].Text</span>
+                        }
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        @foreach (SelectListItem item in EnumHelper.GetSelectList(typeof(acct.common.Helper.DateRange.DateRangeFilter)))
+                        {
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1"
+                                   href='@Url.Action("Index", "Invoice", new { dateRange = item.Value, status = statusParm })'>
+                                    @item.Text
+                                    @if (item.Value == drParm)
+                                    {<i class="fa fa-check"></i>}
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                @*<label class="sr-only" for="dateRangeFilter">Date</label>
+                            @Html.DropDownList("dateRangeFilter",
+                    EnumHelper.GetSelectList(typeof(acct.common.Helper.DateRange.DateRangeFilter)),
+                    new { @class = "form-control" })*@
+            </div>
+            <div class="form-group">
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                        @if (string.IsNullOrEmpty(statusParm))
+                        {
+                            <span>Status: @EnumHelper.GetSelectList(typeof(acct.web.Helper.ControllerHelper.StatusFilter))[0].Text</span>
+                        }
+                        else
+                        {
+                            <span>Status: @statusParm</span>
+                        }
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        @foreach (SelectListItem item in EnumHelper.GetSelectList(typeof(acct.web.Helper.ControllerHelper.StatusFilter)))
+                        {
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1"
+                                   href='@Url.Action("Index", "Invoice", new { dateRange = drParm, status = item.Text })'>
+                                    @item.Text
+                                    @if (item.Text == statusParm)
+                                    {<i class="fa fa-check"></i>}
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="pull-right">
+        <a class="btn btn-primary" href=@Url.Action("Create", "Invoice") role="button"><i class="fa fa-plus"></i> New</a>
+    </div>
+</div>
+
+@Html.Partial("~/Views/Invoice/_List.cshtml", Model)
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page, dateRange = drParm, status = statusParm }))
+
+@section scripts{
+
+}

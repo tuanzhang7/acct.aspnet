@@ -1,0 +1,14 @@
+﻿@model acct.common.POCO.Order
+
+@{
+    ViewBag.Title = "Order";
+    
+}
+
+@Html.Partial("~/Views/Order/_Details.cshtml", Model)
+
+<div class="action-links">
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id })
+    @Html.ActionLink("Print", "Print", new { id=Model.Id })
+</div>
+

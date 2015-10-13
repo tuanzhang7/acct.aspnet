@@ -1,0 +1,157 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+<style>
+    #chartdiv, #chartdiv_salesby_customer, #chartdiv_salesby_salesman {
+        height: 500px;
+    }
+</style>
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist" id="myTab">
+    <li role="presentation"><a href="#sales" role="tab" data-toggle="tab">Monthly Sales</a></li>
+    <li role="presentation"><a href="#customer" role="tab" data-toggle="tab">Top 10 Customer</a></li>
+    <li role="presentation"><a href="#salesman" role="tab" data-toggle="tab">Top 10 Salesman</a></li>
+</ul>
+<!-- Tab panes -->
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="sales">
+        <div class="row">
+            <div class="col-md-10">
+                <h4>@*Monthly Sales*@</h4>
+                <div id="chartdiv" class="chartdiv"></div>
+            </div>
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="customer">
+        <div class="row margin-top30">
+            <div class="col-md-12">
+                <h4>@*Top 10 Customer*@</h4>
+                <div id="chartdiv_salesby_customer" class="chartdiv"></div>
+            </div>
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="salesman">
+        <div class="row margin-top30">
+            <div class="col-md-12">
+                <h4>@*Top 10 Salesman*@</h4>
+                <div id="chartdiv_salesby_salesman" class="chartdiv"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Content/amcharts/amcharts.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/amcharts/serial.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/amcharts/pie.js")"></script>
+    <script type="text/javascript">
+        function showChart(year) {
+            var url = "../Invoice/GetMonthlyTotal?year=" + year;
+            $.getJSON(url, function (chartData) {
+                var chart = AmCharts.makeChart("chartdiv", {
+                    "type": "serial",
+                    "theme": "none",
+                    "dataProvider": chartData,
+                    "valueAxes": [{
+                        "gridColor": "#FFFFFF",
+                        "gridAlpha": 0.2,
+                        "dashLength": 0
+                    }],
+                    "gridAboveGraphs": true,
+                    "startDuration": 1,
+                    "graphs": [{
+                        "balloonText": "[[category]]:<b>[[value]]</b>",
+                        "fillAlphas": 0.8,
+                        "lineAlpha": 0.2,
+                        "type": "column",
+                        "valueField": "total"
+                    }],
+                    "chartCursor": {
+                        "categoryBalloonEnabled": false,
+                        "cursorAlpha": 0,
+                        "zoomable": false
+                    },
+                    "categoryField": "month",
+                    "categoryAxis": {
+                        "gridPosition": "start",
+                        "gridAlpha": 0,
+                        "tickPosition": "start",
+                        "tickLength": 20
+                    },
+                    "exportConfig": {
+                        "menuTop": 0,
+                        "menuItems": [{
+                            "icon": '/lib/3/images/export.png',
+                            "format": 'png'
+                        }]
+                    }
+                });
+            });
+        }
+        function showChartCustomer(year) {
+            var url_customer = "../Invoice/GetYearlyTopCustomer?year=" + year;
+            $.getJSON(url_customer, function (chartData) {
+                var chart = AmCharts.makeChart("chartdiv_salesby_customer", {
+                    "type": "pie",
+                    "theme": "none",
+                    "legend": {
+                        "markerType": "circle",
+                        "position": "right",
+                        "marginRight": 70,
+                        "autoMargins": true
+                    },
+                    "dataProvider": chartData,
+                    "valueField": "total",
+                    "titleField": "customer",
+                    "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
+                });
+            });
+        }
+        function showChartSalesman(year) {
+            var url_salesman = "../Invoice/GetYearlyTopSalesman?year=" + year;
+            $.getJSON(url_salesman, function (chartData) {
+                var chart = AmCharts.makeChart("chartdiv_salesby_salesman", {
+                    "type": "pie",
+                    "theme": "none",
+                    "legend": {
+                        "markerType": "circle",
+                        "position": "right",//bottom
+                        "marginRight": 70,
+                        "autoMargins": true
+                    },
+                    "dataProvider": chartData,
+                    "valueField": "total",
+                    "titleField": "salesman",
+                    "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
+                });
+            });
+        }
+        $(document).ready(function () {
+
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+
+                var activeTab = $(e.target).text();
+                var year = '2014-01-01';
+                if (activeTab == 'Monthly Sales') {
+                    if ($('#chartdiv').is(':empty')) {
+                        showChart(year);
+                    }
+                }
+                else if (activeTab == 'Top 10 Customer') {
+                    if ($('#chartdiv_salesby_customer').is(':empty')) {
+                        showChartCustomer(year);
+                    }
+
+                }
+                else if (activeTab == 'Top 10 Salesman') {
+                    if ($('#chartdiv_salesby_salesman').is(':empty')) {
+                        showChartSalesman(year);
+                    }
+                }
+            })
+            $('#myTab a:first').tab('show');
+        })
+    </script>
+
+}

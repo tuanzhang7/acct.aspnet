@@ -1,0 +1,50 @@
+﻿@model acct.common.POCO.Order
+
+
+<div class="row form-group">
+    <div class="display-label col-md-2">
+        @Html.LabelFor(model => model.CustomerId)
+    </div>
+    <div class="display-field col-md-6">
+        @*@Html.DisplayFor(model => model.Customer.Name)*@
+        @Html.ActionLink(Model.Customer.Name, "Details","Customer", new { id = Model.CustomerId },null)
+    </div>
+
+    <div class="display-label col-md-2">
+        @Html.LabelFor(model => model.OrderDate)
+    </div>
+    <div class="display-field col-md-2">
+        @Html.DisplayFor(model => model.OrderDate, "Date")
+    </div>
+</div>
+<div class="row form-group">
+    <div class="display-label col-md-2">
+        @Html.LabelFor(model => model.SalesmanId)
+    </div>
+    <div class="display-field col-md-6">
+        @Html.DisplayFor(model => model.Salesman.Name)
+    </div>
+    <div class="display-label col-md-2">
+        @Html.LabelFor(model => model.GSTRate)
+    </div>
+    <div class="display-field col-md-2">
+        @Html.DisplayFor(model => model.GSTRate, "G29")%
+    </div>
+</div>
+<div class="row form-group">
+    <div class="display-label col-md-2">
+        @Html.LabelFor(model => model.Remark)
+    </div>
+    <div class="display-field col-md-6">
+        @Html.DisplayFor(model => model.Remark)
+    </div>
+    
+</div>
+
+@Html.Partial("~/Views/Order/_ListDetail.cshtml", Model.OrderDetail)
+
+<div class="col-md-12 text-right">
+    <span class="text-right">@Html.LabelFor(model => model.TotalAmount) <span>@Html.DisplayFor(model => model.TotalWithTax, "Currency")</span></span>
+</div>
+
+

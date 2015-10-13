@@ -1,0 +1,247 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    @using acct.web.Helper
+    @{
+        string action = (string)ViewContext.RouteData.Values["action"];
+        string controller = (string)ViewContext.RouteData.Values["controller"];
+        string action_controller = action + "," + controller;
+    }
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - ACCT</title>
+    <link rel="icon" type="image/x-icon" href="@Url.Content("~/favicon.ico")" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/bootstrapcss")
+    @Styles.Render("~/Content/sitecss")
+    @Styles.Render("~/Content/css/sidebar")
+    @Scripts.Render("~/bundles/modernizr")
+   
+    <!-- MetisMenu CSS -->
+    <link href="@Url.Content("~/Content/css/plugins/metisMenu/metisMenu.min.css")" rel="stylesheet">
+    <!-- Timeline CSS -->
+    <link href="@Url.Content("~/Content/css/plugins/timeline.css")" rel="stylesheet">
+    @Scripts.Render("~/Scripts/angular.js")
+    @Scripts.Render("~/Scripts/angular-resource.js")
+    <style>
+
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div id="logo">
+                    <img src='@Html.ImageUrlFor("~/Images/ThickPotentialLogo.png")' />
+                </div>
+                <a class="navbar-brand" href="index.html">@*@acct.common.Helper.Settings.Settings.GetGeneralSettings().company_name*@</a>
+                
+            </div>
+            <!-- /.navbar-header -->
+            <ul class="nav navbar-top-links navbar-right">
+                @*<li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-messages">
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <strong>John Smith</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+                                </div>
+                                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a class="text-center" href="#">
+                                <strong>Read All Messages</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-messages -->
+                </li>
+                <!-- /.dropdown -->*@
+               
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li>
+                            <a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+            <div class="navbar-default sidebar" role="navigation">
+            @if (Request.IsAuthenticated)
+            {
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        @*<li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </li>*@
+                        <li>
+                            <a  href="@Url.Action("Index","Home",null)"><i class="fa fa-dashboard fa-fw fa-lg"></i> &nbsp;Dashboard</a>
+                        </li>
+                        <li class="active">
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw fa-lg"></i> &nbsp;SALES<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a class="@(action_controller.Equals("Create,Invoice", StringComparison.InvariantCultureIgnoreCase) ? "active" : "")" 
+                                       href="@Url.Action("Create", "Invoice", null)"><i class="fa fa-plus fa-fw"></i>&nbsp;New Invoice</a>
+                                </li>
+                               
+                                <li>
+                                    <a class="@(action_controller.Equals("Index,Invoice", StringComparison.InvariantCultureIgnoreCase) ? "active" : "")"
+                                       href="@Url.Action("Index", "Invoice", null)"><i class="fa fa-file fa-fw"></i>&nbsp;Invoices</a>
+                                </li>
+                                <li>
+                                    <a class="@(action_controller.Equals("Create,Quotation", StringComparison.InvariantCultureIgnoreCase) ? "active" : "")"
+                                       href="@Url.Action("Create", "Quotation", null)"><i class="fa fa-plus fa-fw"></i>&nbsp;New Quotation</a>
+                                </li>
+
+                                <li>
+                                    <a class="@(action_controller.Equals("Index,Quotation", StringComparison.InvariantCultureIgnoreCase) ? "active" : "")"
+                                       href="@Url.Action("Index", "Quotation", null)"><i class="fa fa-file fa-fw"></i>&nbsp;Quotations</a>
+                                </li>
+                                <li>
+                                    <a class="@(action_controller.Equals("Create,Payment", StringComparison.InvariantCultureIgnoreCase) ? "active" : "")"
+                                       href="@Url.Action("Create", "Payment", null)"><i class="fa fa-usd fa-fw"></i>&nbsp;Receive Payment</a>
+                                </li>
+                                @*<li>
+                                        <a href="@Url.Action("Create", "Invoice", null)"><i class="fa fa-file fa-fw"></i> &nbsp;New JobOrder</a>
+                                    </li>
+                                    <li>
+                                        <a class="@(action_controller.Equals("Index,Invoice", StringComparison.InvariantCultureIgnoreCase) ? "active" : "")" href="@Url.Action("Index", "Invoice", null)"><i class="fa fa-list fa-fw"></i> &nbsp;Job Orders</a>
+                                    </li>*@
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                       
+                        <li class="active">
+                            <a href="#"><i class="fa fa-user fa-fw fa-lg"></i> &nbsp;CUSTOMER<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a class="@(action_controller.Equals("Index,Customer", StringComparison.InvariantCultureIgnoreCase) ? "active" : "")" 
+                                       href="@Url.Action("Index", "Customer", null)"><i class="fa fa-users fa-fw"></i>&nbsp;Customers</a>
+                                </li>
+                                
+                                <li>
+                                    <a class="@(action_controller.Equals("Index,Salesman", StringComparison.InvariantCultureIgnoreCase) ? "active" : "")"
+                                       href="@Url.Action("Index", "Salesman", null)"><i class="fa fa-user fa-fw"></i>&nbsp;Salesmans</a>
+                                </li>
+                                @*<li>
+                                    <a href="#"><i class="fa fa-list fa-fw"></i>&nbsp;Customer Project</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-list fa-fw"></i>&nbsp;Customer PO</a>
+                                </li>*@
+
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li class="active">
+                            <a href="#"><i class="fa fa-wrench fa-fw fa-lg"></i> &nbsp;Settings<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a class="@(action_controller.Equals("Index,GST", StringComparison.InvariantCultureIgnoreCase) ? "active" : "")"
+                                       href="@Url.Action("Index", "GST", null)"><i class="fa fa-money fa-fw"></i>&nbsp;GST</a>
+                                </li>
+                                <li>
+                                    <a class="@(action_controller.Equals("Index,Options", StringComparison.InvariantCultureIgnoreCase) ? "active" : "")"
+                                       href="@Url.Action("Index", "Options", null)"><i class="fa fa-bars fa-fw"></i>&nbsp;Options</a>
+                                </li>
+                                <li>
+                                    <a class="@(action_controller.Equals("ImportData,Tools", StringComparison.InvariantCultureIgnoreCase) ? "active" : "")"
+                                       href="@Url.Action("ImportData", "Tools", null)"><i class="fa fa-database fa-fw"></i>&nbsp;Import Data</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-print fa-fw fa-lg"></i> &nbsp;REPORT<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="#"><i class="fa fa-print fa-fw"></i>&nbsp;Salesman Sales</a>
+                                </li>
+                                @*<li>
+                                    <a href="#"><i class="fa fa-print fa-fw"></i>&nbsp;Job-DO-Invoice</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-print fa-fw"></i>&nbsp;Invoice-DO-Job</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-usd fa-fw"></i>&nbsp;Project Profit</a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-usd fa-fw"></i>&nbsp;JobOrder Profit</a>
+                                </li>*@
+
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            }
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="page-header">@ViewBag.Title</h2>
+                </div>
+                
+                <!-- /.col-lg-12 -->
+            </div>
+           @RenderBody()
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    
+    
+    @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/bundles/jqueryui")*@
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/shared")
+    <script src="@Url.Content("~/Scripts/plugins/metisMenu/metisMenu.min.js")"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="@Url.Content("~/Scripts/sb-admin-2.js")"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

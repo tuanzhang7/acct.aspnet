@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    @using acct.web.Helper
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - ACCT</title>
+    <link rel="icon" type="image/x-icon" href="@Url.Content("~/favicon.ico")" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/sitecss")
+    @Styles.Render("~/Content/bootstrapcss")
+    @*@Styles.Render("~/Content/themes/base/css")*@
+    @Scripts.Render("~/bundles/modernizr")
+    <!-- include your less or built css files  -->
+    <!--
+    bootstrap-datetimepicker-build.less will pull in "../bootstrap/variables.less" and "bootstrap-datetimepicker.less";
+    or
+    <link rel="stylesheet" href="/Content/bootstrap-datetimepicker.css" />
+    -->
+    
+</head>
+<body>
+    <div class="page">
+        <div id="header">
+            <div id="logo">
+                @*<img src='@Html.ImageUrlFor("~/Images/ThickPotentialLogo.png")' />*@
+                <img src='@Html.ImageUrlFor("~/Images/PawleckLogo.png")' />
+
+            </div>
+            @if (Request.IsAuthenticated)
+            {
+                <nav class="navbar " role="navigation">
+                    <div class="container-fluid">
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse">
+                            <ul class="nav navbar-nav">
+
+                                <li>
+                                    @Html.ActionLink("Dashboard", "Index", "Home", new { Area = "" }, new { })
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Dashboard sales", "About", "Home", new { Area = "" }, new { })
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sales <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li>@Html.ActionLink("Customer ", "Index", "Customer", new { page = "", Area = "" }, null)</li>
+                                        <li class="divider"></li>
+                                        <li>@Html.ActionLink("Quotations ", "Index", "Quotation", new { page = "", Area = "" }, null)</li>
+                                        <li>@Html.ActionLink("New Quotation ", "Create", "Quotation", new { page = "", Area = "" }, null)</li>
+                                        <li class="divider"></li>
+                                        <li>@Html.ActionLink("Invoices ", "Index", "Invoice", new { page = "", Area = "" }, null)</li>
+                                        <li>@Html.ActionLink("New Invoice ", "Create", "Invoice", new { page = "", Area = "" }, null)</li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Purchasing <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li>@Html.ActionLink("Vendor ", "Index", "Vendor", new { page = "", Area = "" }, null)</li>
+                                        <li class="divider"></li>
+                                        <li>@Html.ActionLink("Purchase Order ", "Index", "Purchase", new { page = "", Area = "" }, null)</li>
+                                        <li>@Html.ActionLink("New Purchase Order ", "Create", "Purchase", new { page = "", Area = "" }, null)</li>
+
+                                    </ul>
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Expenses", "Index", "Expense", new { page = "", Area = "" }, null)
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Report <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li>@Html.ActionLink("4-line statement", "4LineStatement", "Report", new { page = "", Area = "" }, null)</li>
+                                    </ul>
+                                </li>
+
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Setup <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li>@Html.ActionLink("GST", "Index", "GST", new { page = "", Area = "" }, null)</li>
+                                        <li>@Html.ActionLink("Salesman", "Index", "Salesman", new { page = "", Area = "" }, null)</li>
+                                        <li>@Html.ActionLink("Expense Category", "Index", "ExpenseCategory", new { page = "", Area = "" }, null)</li>
+                                        @*<li>@Html.ActionLink("Unit Measure", "Index", "UnitMeasure", new { page = "", Area = "" }, null)</li>*@
+                                        <li class="divider"></li>
+                                        <li>@Html.ActionLink("Options ", "Index", "Options", new { page = "", Area = "" }, null)</li>
+                                        <li>@Html.ActionLink("Import Data", "ImportData", "Tools", new { page = "", Area = "" }, null)</li>
+
+                                    </ul>
+                                </li>
+                            </ul>
+
+                            <ul class="nav navbar-nav navbar-right">
+                                @Html.Partial("_LoginPartial")
+                            </ul>
+                        </div>
+                        <!-- /.navbar-collapse -->
+                    </div>
+                    <!-- /.container-fluid -->
+                </nav>
+            }
+        </div>
+        <div class="head">
+            <div class="head-titles">
+                @ViewBag.Title
+            </div>
+        </div>
+        <div id="main">
+           @RenderBody()
+        </div>
+        <div id="footer">
+            &copy; @(DateTime.Today.Year) Thick Potential Technology, All Rights Reserved
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/shared")
+    @RenderSection("scripts", required: false)
+    
+</body>
+</html>

@@ -1,0 +1,115 @@
+﻿@model acct.common.POCO.Customer
+@using acct.web.Helper
+@{
+    ViewBag.Title = @Html.DisplayFor(model => model.Name);
+
+}
+<div class="navbar navbar-inner block-header">
+    Balance: @ViewBag.balance
+    <div class="pull-right">
+        <a class="btn btn-primary" href=@Url.Action("Create", "Invoice", new { id = Model.Id }) role="button"><i class="fa fa-plus"></i> New Invoice</a>
+        <a class="btn btn-primary" href=@Url.Action("Create", "Quotation", new { id = Model.Id }) role="button"><i class="fa fa-plus"></i> New Quotation</a>
+    </div>
+</div>
+
+<ul class="nav nav-tabs" role="tablist" id="myTab">
+    <li role="presentation"><a href="#sales" role="tab" data-toggle="tab">Transactions</a></li>
+    <li role="presentation"><a href="#customer" role="tab" data-toggle="tab">Customer Info</a></li>
+</ul>
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="sales">
+        <div class="row">
+            <div class="col-md-12">
+                <h4>@*Monthly Sales*@</h4>
+                <div id="transactiondiv">
+                    @Html.Partial("~/Views/Invoice/_List.cshtml", (PagedList.PagedList<acct.common.POCO.Invoice>)ViewBag.RecentInvoice)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="customer">
+        <div class="row margin-top30">
+            <div class="col-md-12">
+                <div class="detailview">
+                    @*<div class="row">
+                            <div class="display-label">
+                                 @Html.DisplayNameFor(model => model.Name)
+                            </div>
+                            <div class="display-field">
+                                @Html.DisplayFor(model => model.Name)
+                            </div>
+                        </div>*@
+                    <div class="row">
+                        <div class="display-label">
+                            @Html.DisplayNameFor(model => model.Address)
+                        </div>
+                        <div class="display-field">
+                            <address>
+                                @Html.FormatBody(Model.Address)
+                            </address>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="display-label">
+                            @Html.DisplayNameFor(model => model.Phone)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.Phone)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="display-label">
+                            @Html.DisplayNameFor(model => model.Fax)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.Fax)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="display-label">
+                            @Html.DisplayNameFor(model => model.Email)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.Email)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="display-label">
+                            @Html.DisplayNameFor(model => model.ContactName)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.ContactName)
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="display-label">
+                            @Html.LabelFor(model => model.idmas_GST)
+                        </div>
+                        <div class="display-field">
+                            @Html.DisplayFor(model => model.GST.Rate)
+                        </div>
+                    </div>
+                </div>
+                <div class="action-links">
+                    <a class="button" href='@Url.Action("Edit", "Customer",new { id=Model.Id })'> Edit </a>
+                    @*<a class="button" href='@Url.Action("Index", "Customer")'>Back to List</a>
+                                        <a class="button" href='@Url.Action("Create", "Invoice")'>Add Invoice</a>
+                        <a class="button" href='@Url.Action("Customer", "Invoice", new { id = Model.Id })'>Recent Invoices</a>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#myTab a:first').tab('show');
+        })
+    </script>
+}
+
+
+

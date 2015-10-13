@@ -1,0 +1,21 @@
+﻿enable-migrations
+add-migration InitialCreate
+update-database -Verbose
+update-database -Script
+
+USE [acctA7ldXFGZ0E41]
+GO
+drop table [dbo].[PaymentDetail];
+drop table [dbo].[Payment];
+drop table [dbo].[Invoice];
+drop table [dbo].[OrderDetail];
+drop table [dbo].[Quotation];
+drop table [dbo].[Order];
+drop table [dbo].[Customer];
+drop table [dbo].[GST];
+drop table [dbo].[Options];
+drop table [dbo].[UnitMeasure];
+drop table [dbo].[Expense];
+drop table [dbo].[ExpenseCategory];
+drop table [dbo].[Salesman];
+drop table [dbo].[__MigrationHistory];

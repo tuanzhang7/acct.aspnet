@@ -1,0 +1,37 @@
+﻿@model IEnumerable<acct.web.Controllers.Option>
+
+@{
+    ViewBag.Title = "Options";
+    
+}
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    foreach (var item in Model) {
+        <div class="detailview">
+            <div class="row">
+                <div class="editor-label">
+                    @Html.Label(@item.DisplayName)
+                </div>
+                <div class="display-field">
+                    @if (item.DataType == "TextArea")
+                    {
+                        @Html.TextArea(@item.Name, @item.Value, new { @class = "form-control", rows = "4" })
+                    }
+                    else
+                    {
+                        @Html.TextBox(@item.Name, @item.Value,new { @class = "form-control" })
+                    }
+
+                </div>
+            </div>
+        </div>
+    }
+    <p>
+        <input type="submit" value="Save" />
+    </p>
+}
+@section scripts{
+
+}

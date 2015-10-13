@@ -1,0 +1,79 @@
+﻿@model PagedList.IPagedList<acct.common.POCO.Quotation>
+@using PagedList.Mvc;
+@using PagedList;
+
+<table class="table table-hover margin-top30">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.First().OrderNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().CustomerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().OrderDate)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.First().Remark)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Status)
+            </th>
+            <th class="text-right">
+                @Html.DisplayNameFor(model => model.First().TotalAmount)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tr id='row@(item.Id)'>
+            <td>
+                @Html.ActionLink(item.OrderNumber, "Details", "Quotation", new { id = item.Id }, null)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDate)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Remark)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+                
+            </td>
+            <td class="text-right">
+                @Html.DisplayFor(modelItem => item.TotalAmount)
+            </td>
+            <td>
+                @*<ul class="list-inline">
+                    <li>
+                        @if (!item.Paid)
+                        {
+                            <a href='@Url.Action("Edit", "Customer", new { id = item.Id })' title="Edit"><i class="glyphicon glyphicon-pencil"></i></a>
+                        }
+                    </li>
+                    <li>
+                        <a href='@Url.Action("Print", "Customer", new { id = item.Id })' title="Print"><i class="fa fa-print"></i></a>
+                    </li>
+                </ul>*@
+                
+               
+                 <a href='@Url.Action("Edit", "Quotation", new { id = item.Id })' title="Edit"><i class="glyphicon glyphicon-pencil"></i></a>
+                <div class="pull-right">
+                    <a href='@Url.Action("Print", "Quotation", new { id = item.Id })' title="Print"><i class="fa fa-print"></i></a>
+                </div>
+                
+            </td>
+        </tr>
+    }
+
+</table>
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
+

@@ -1,0 +1,22 @@
+﻿@model acct.common.POCO.ExpenseCategory
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div class="detailview">
+        <div class="row">
+            <div class="display-label">
+				@Html.LabelFor(model => model.Category)
+			</div>
+        <div class="display-field">
+				@Html.EditorFor(model => model.Category)
+				@Html.ValidationMessageFor(model => model.Category)
+			</div>
+		</div>
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </div>
+}
+

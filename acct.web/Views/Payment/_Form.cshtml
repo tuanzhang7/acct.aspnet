@@ -1,0 +1,52 @@
+﻿@model acct.common.POCO.Payment
+@*@Html.AntiForgeryToken()*@
+@*@Html.ValidationSummary(true)*@
+<div class="detailview">
+    <div class="row">
+        <div class="display-label">
+            @Html.LabelFor(model => model.Amount)
+        </div>
+        <div class="display-field">
+            @Html.EditorFor(model => model.Amount)
+            @Html.ValidationMessageFor(model => model.Amount)
+        </div>
+    </div>
+    <div class="row">
+        <div class="display-label">
+            @Html.LabelFor(model => model.Date)
+        </div>
+        <div class="display-field">
+            @Html.EditorFor(model => model.Date, "Date")
+            @Html.ValidationMessageFor(model => model.Date)
+        </div>
+    </div>
+    <div class="row">
+        <div class="display-label">
+            @Html.LabelFor(model => model.PaymentMethod)
+        </div>
+        <div class="display-field">
+            @Html.EditorFor(model => model.PaymentMethod)
+            @Html.ValidationMessageFor(model => model.PaymentMethod)
+        </div>
+    </div>
+    <div class="row">
+        <div class="display-label">
+            @Html.LabelFor(model => model.ReferenceNumber)
+        </div>
+        <div class="display-field">
+            @Html.EditorFor(model => model.ReferenceNumber)
+            @Html.ValidationMessageFor(model => model.ReferenceNumber)
+        </div>
+    </div>
+    <div class="row">
+        <div class="display-label">
+            @Html.LabelFor(model => model.Remarks)
+        </div>
+        <div class="display-field">
+            @Html.EditorFor(model => model.Remarks)
+            @Html.ValidationMessageFor(model => model.Remarks)
+        </div>
+    </div>@**@
+</div>
+
+

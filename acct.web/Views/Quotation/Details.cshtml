@@ -1,0 +1,36 @@
+﻿@model acct.common.POCO.Quotation
+
+@{
+    ViewBag.Title = "Quotation " + Model.OrderNumber;
+    
+}
+
+    @Html.Partial("~/Views/Order/_Details.cshtml", Model)
+
+    <div class="action-links">
+        
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+        <a href='@Url.Action("Print", "Quotation", new { id = Model.Id })' class="button" >
+            <i class="fa fa-print"></i> Print </a>
+
+    </div>
+
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function () {
+            $('.actions').hide();
+
+            $('.addressRow').hover(function () {
+                $(this).children('.actions').show();
+            }, function () {
+                $(this).children('.actions').hide();
+            });
+            
+            
+        });
+        
+        
+    </script>
+}
+

@@ -1,0 +1,76 @@
+﻿@model PagedList.IPagedList<acct.common.POCO.Invoice>
+@using PagedList.Mvc;
+@using PagedList;
+
+<table class="table table-hover margin-top30">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.First().OrderNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().CustomerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().OrderDate)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.First().Remark)
+            </th>
+            
+            <th class="text-right">
+                @Html.DisplayNameFor(model => model.First().TotalAmount)
+            </th>
+            <th class="text-right">
+                @Html.DisplayNameFor(model => model.First().AmountOutstanding)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+        <tr id='row@(item.Id)'>
+            <td>
+                @Html.ActionLink(item.OrderNumber, "Details","Invoice", new { id = item.Id },null)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.Customer.Name)*@
+                @Html.ActionLink(item.Customer.Name, "Details","Customer", new { id = item.Customer.Id },null)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDate)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Remark)
+            </td>
+            
+            <td class="text-right">
+                @Html.DisplayFor(modelItem => item.TotalWithTax)
+            </td>
+            <td class="text-right">
+                @Html.DisplayFor(modelItem => item.AmountOutstanding)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status, "Status")
+            </td>
+            <td>              
+                @if (item.Status != (int)acct.common.POCO.Order.StatusOptions.Paid)
+                {
+                    <a href='@Url.Action("Edit", "Invoice", new { id = item.Id })' title="Edit"><i class="glyphicon glyphicon-pencil"></i></a>
+                }
+                <div class="pull-right">
+                    <a href='@Url.Action("Print", "Invoice", new { id = item.Id })' title="Print"><i class="fa fa-print"></i></a>
+                </div>
+                
+            </td>
+        </tr>
+    }
+</table>
+
+

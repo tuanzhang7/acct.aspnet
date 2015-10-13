@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A2AF760B-EAA8-4F80-AB70-4E0B57DC4AD7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>acct.common</RootNamespace>
+    <AssemblyName>acct.common</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Base\BusinessBase.cs" />
+    <Compile Include="Base\IRepositoryBase.cs" />
+    <Compile Include="Base\ITrackableEntity.cs" />
+    <Compile Include="Helper\DateRange.cs" />
+    <Compile Include="Helper\Settings\GeneralSettings.cs" />
+    <Compile Include="Helper\NRICValidate.cs" />
+    <Compile Include="Helper\RuleViolation.cs" />
+    <Compile Include="Helper\Settings\SeoSettings.cs" />
+    <Compile Include="Helper\Settings\Settings.cs" />
+    <Compile Include="Helper\Settings\SettingsBase.cs" />
+    <Compile Include="Helper\Settings\UnitOfWork.cs" />
+    <Compile Include="Helper\Utility.cs" />
+    <Compile Include="POCO\Customer.cs" />
+    <Compile Include="POCO\Expense.cs" />
+    <Compile Include="POCO\ExpenseCategory.cs" />
+    <Compile Include="POCO\Invoice.cs" />
+    <Compile Include="POCO\Order.cs" />
+    <Compile Include="POCO\OrderDetail.cs" />
+    <Compile Include="POCO\Payment.cs" />
+    <Compile Include="POCO\PaymentDetail.cs" />
+    <Compile Include="POCO\Quotation.cs" />
+    <Compile Include="POCO\GST.cs" />
+    <Compile Include="POCO\Options.cs" />
+    <Compile Include="POCO\Salesman.cs" />
+    <Compile Include="POCO\UnitMeasure.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\IExpenseCategoryRepo.cs" />
+    <Compile Include="Repository\IExpenseRepo.cs" />
+    <Compile Include="Repository\IPaymentDetailRepo.cs" />
+    <Compile Include="Repository\ISalesmanepo.cs" />
+    <Compile Include="Repository\IPaymentRepo.cs" />
+    <Compile Include="Repository\IInvoiceRepo.cs" />
+    <Compile Include="Repository\IOptionsRepo.cs" />
+    <Compile Include="Repository\IOrderDetailRepo.cs" />
+    <Compile Include="Repository\IOrderRepo.cs" />
+    <Compile Include="Repository\IQuotationRepo.cs" />
+    <Compile Include="Repository\IUnitMeasureRepo.cs" />
+    <Compile Include="Repository\IGSTRepo.cs" />
+    <Compile Include="Repository\ICustomerRepo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+    <None Include="POCO\ClassDiagram2.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

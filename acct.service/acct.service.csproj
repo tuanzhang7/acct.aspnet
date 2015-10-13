@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C5403C8C-8499-490A-928E-C33E15A5D2A6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>acct.service</RootNamespace>
+    <AssemblyName>acct.service</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CsvHelper, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
+      <HintPath>..\packages\CsvHelper.2.12.0.0\lib\net40-client\CsvHelper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Base\ServiceBase.cs" />
+    <Compile Include="ExpenseCategorySvc.cs" />
+    <Compile Include="ExpenseSvc.cs" />
+    <Compile Include="PaymentDetailSvc.cs" />
+    <Compile Include="SalesmanSvc.cs" />
+    <Compile Include="Helper\DataImportor.cs" />
+    <Compile Include="Helper\RegexUtilities.cs" />
+    <Compile Include="Helper\StringExt.cs" />
+    <Compile Include="PaymentSvc.cs" />
+    <Compile Include="InvoiceSvc.cs" />
+    <Compile Include="OptionsSvc.cs" />
+    <Compile Include="OrderDetailSvc.cs" />
+    <Compile Include="OrderSvc.cs" />
+    <Compile Include="QuotationSvc.cs" />
+    <Compile Include="UnitMeasureSvc.cs" />
+    <Compile Include="GSTSvc.cs" />
+    <Compile Include="CustomerSvc.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\acct.common\acct.common.csproj">
+      <Project>{a2af760b-eaa8-4f80-ab70-4e0b57dc4ad7}</Project>
+      <Name>acct.common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\acct.repository.ef6\acct.repository.ef6.csproj">
+      <Project>{0e9fd765-11a3-40b6-9b3b-d859577c82bc}</Project>
+      <Name>acct.repository.ef6</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

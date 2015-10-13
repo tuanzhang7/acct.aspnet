@@ -1,0 +1,326 @@
+﻿@model acct.web.Models.DashboardModel
+@{
+    ViewBag.Title = "Dashboard";
+}
+<style>
+    #chartdiv, #chartdiv_salesby_customer, #chartdiv_salesby_salesman {
+        height: 400px;
+    }
+</style>
+
+
+<!-- /.row -->
+<div class="row">
+    <div class="col-lg-4 col-md-6">
+        <div class="panel panel-yellow">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-money fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">@Html.DisplayFor(model => model.OpenInvOutstandingAmount, "Currency")</div>
+                        <div>@Html.DisplayFor(model => model.TotalNumOfOpenInv) Outstanding Invoices in last 365 days</div>
+                    </div>
+                </div>
+            </div>
+            <a href='@Url.Action("Index", "Invoice", new { dateRange = (int)acct.common.Helper.DateRange.DateRangeFilter.Last365Days, status = "Open" })'>
+                <div class="panel-footer">
+                    <span class="pull-left">View Details</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    
+    <div class="col-lg-4 col-md-6">
+        <div class="panel panel-green">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-tasks fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">@Html.DisplayFor(model => model.ReceivedAmount, "Currency")</div>
+                        <div>@Html.DisplayFor(model => model.TotalNumOfPaidInv) Paid Invoices in last 3 Months</div>
+                    </div>
+                </div>
+            </div>
+            <a href='@Url.Action("Index", "Invoice", new { dateRange = (int)acct.common.Helper.DateRange.DateRangeFilter.Last3Month, status = "Closed" })'>
+                <div class="panel-footer">
+                    <span class="pull-left">View Details</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    
+    <div class="col-lg-4 col-md-6">
+        <div class="panel panel-red">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-user fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">13</div>
+                        <div>New Customers!</div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">View Details</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- /.row -->
+<div class="row">
+    <div class="col-lg-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-bar-chart-o fa-fw"></i> Monthly Sales
+                <div class="pull-right">
+                    <div class="btn-group">
+                        @*<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                Actions
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-right" role="menu">
+                                <li>
+                                    <a href="#">Action</a>
+                                </li>
+                                <li>
+                                    <a href="#">Another action</a>
+                                </li>
+                                <li>
+                                    <a href="#">Something else here</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="#">Separated link</a>
+                                </li>
+                            </ul>*@
+                    </div>
+                </div>
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div id="chartdiv" class="chartdiv"></div>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-pie-chart fa-fw"></i> Top 10 Salesman
+                <div class="pull-right">
+                    <div class="btn-group">
+
+                    </div>
+                </div>
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div id="chartdiv_salesby_salesman" class="chartdiv"></div>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-pie-chart fa-fw"></i> Top 10 Customers
+                <div class="pull-right">
+                    <div class="btn-group">
+
+                    </div>
+                </div>
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div id="chartdiv_salesby_customer" class="chartdiv"></div>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+
+    </div>
+    <!-- /.col-lg-8 -->
+    <div class="col-lg-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-bell fa-fw"></i> Notifications Panel
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="list-group">
+                    <a href="#" class="list-group-item">
+                        <i class="fa fa-comment fa-fw"></i> New Comment
+                        <span class="pull-right text-muted small">
+                            <em>4 minutes ago</em>
+                        </span>
+                    </a>
+                    <a href="#" class="list-group-item">
+                        <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                        <span class="pull-right text-muted small">
+                            <em>12 minutes ago</em>
+                        </span>
+                    </a>
+                    <a href="#" class="list-group-item">
+                        <i class="fa fa-envelope fa-fw"></i> Message Sent
+                        <span class="pull-right text-muted small">
+                            <em>27 minutes ago</em>
+                        </span>
+                    </a>
+                    <a href="#" class="list-group-item">
+                        <i class="fa fa-tasks fa-fw"></i> New Task
+                        <span class="pull-right text-muted small">
+                            <em>43 minutes ago</em>
+                        </span>
+                    </a>
+                    <a href="#" class="list-group-item">
+                        <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                        <span class="pull-right text-muted small">
+                            <em>11:32 AM</em>
+                        </span>
+                    </a>
+                    <a href="#" class="list-group-item">
+                        <i class="fa fa-bolt fa-fw"></i> Server Crashed!
+                        <span class="pull-right text-muted small">
+                            <em>11:13 AM</em>
+                        </span>
+                    </a>
+                    <a href="#" class="list-group-item">
+                        <i class="fa fa-warning fa-fw"></i> Server Not Responding
+                        <span class="pull-right text-muted small">
+                            <em>10:57 AM</em>
+                        </span>
+                    </a>
+                    <a href="#" class="list-group-item">
+                        <i class="fa fa-shopping-cart fa-fw"></i> New Order Placed
+                        <span class="pull-right text-muted small">
+                            <em>9:49 AM</em>
+                        </span>
+                    </a>
+                    <a href="#" class="list-group-item">
+                        <i class="fa fa-money fa-fw"></i> Payment Received
+                        <span class="pull-right text-muted small">
+                            <em>Yesterday</em>
+                        </span>
+                    </a>
+                </div>
+                <!-- /.list-group -->
+                <a href="#" class="btn btn-default btn-block">View All Alerts</a>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-4 -->
+</div>
+<!-- /.row -->
+@section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Content/amcharts/amcharts.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/amcharts/serial.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/amcharts/pie.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/amcharts/themes/light.js")"></script>
+
+    <script type="text/javascript">
+        function showChart(year) {
+            var url = "../Invoice/GetMonthlyTotal?year=" + year;
+            $.getJSON(url, function (chartData) {
+                var chart = AmCharts.makeChart("chartdiv", {
+                    "type": "serial",
+                    "theme": "light",
+                    "dataProvider": chartData,
+                    "valueAxes": [{
+                        "gridColor": "#FFFFFF",
+                        "gridAlpha": 0.2,
+                        "dashLength": 0
+                    }],
+                    "gridAboveGraphs": true,
+                    "startDuration": 1,
+                    "graphs": [{
+                        "balloonText": "[[category]]:<b>[[value]]</b>",
+                        "fillAlphas": 0.8,
+                        "lineAlpha": 0.2,
+                        "type": "column",
+                        "valueField": "total"
+                    }],
+                    "chartCursor": {
+                        "categoryBalloonEnabled": false,
+                        "cursorAlpha": 0,
+                        "zoomable": false
+                    },
+                    "categoryField": "month",
+                    "categoryAxis": {
+                        "gridPosition": "start",
+                        "gridAlpha": 0,
+                        "tickPosition": "start",
+                        "tickLength": 20
+                    },
+                    "exportConfig": {
+                        "menuTop": 0,
+                        "menuItems": [{
+                            "icon": '/lib/3/images/export.png',
+                            "format": 'png'
+                        }]
+                    }
+                });
+            });
+        }
+        function showChartCustomer(year) {
+            var url_customer = "../Invoice/GetYearlyTopCustomer?year=" + year;
+            $.getJSON(url_customer, function (chartData) {
+                var chart = AmCharts.makeChart("chartdiv_salesby_customer", {
+                    "type": "pie",
+                    "theme": "light",
+                    "legend": {
+                        "markerType": "circle",
+                        "position": "right",
+                        "marginRight": 70,
+                        "autoMargins": true
+                    },
+                    "dataProvider": chartData,
+                    "valueField": "total",
+                    "titleField": "customer",
+                    "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
+                });
+            });
+        }
+        function showChartSalesman(year) {
+            var url_salesman = "../Invoice/GetYearlyTopSalesman?year=" + year;
+            $.getJSON(url_salesman, function (chartData) {
+                var chart = AmCharts.makeChart("chartdiv_salesby_salesman", {
+                    "type": "pie",
+                    "theme": "light",
+                    "legend": {
+                        "markerType": "circle",
+                        "position": "right",//bottom
+                        "marginRight": 70,
+                        "autoMargins": true
+                    },
+                    "dataProvider": chartData,
+                    "valueField": "total",
+                    "titleField": "salesman",
+                    "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
+                });
+            });
+        }
+        $(document).ready(function () {
+            var year = '2014-01-01';
+            showChart(year);
+            showChartCustomer(year);
+            showChartSalesman(year);
+
+        })
+    </script>
+
+
+}

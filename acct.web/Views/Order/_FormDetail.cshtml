@@ -1,0 +1,74 @@
+﻿@model IEnumerable<acct.common.POCO.OrderDetail>
+@{acct.common.POCO.OrderDetail newDetail = (acct.common.POCO.OrderDetail)ViewBag.NewDetail;}
+    <table class="table" id="detail-table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.LabelFor(model => model.First().Description)
+                </th>
+                <th>
+                    @Html.LabelFor(model => model.First().Qty)
+                </th>
+                <th>
+                    @Html.LabelFor(model => model.First().UnitPrice)
+                </th>
+                <th>
+                    @Html.LabelFor(model => model.First().Discount)
+                </th>
+                <th class="text-right">
+                    @Html.LabelFor(model => model.First().LineTotal)
+                </th>
+                <th>
+                </th>
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+{
+            <tr id='row@(item.Id)' data-id="@(item.Id)">
+                @*
+                <td>@Html.Hidden("item_id_"+item.Id, item.Id)
+                    <span id='duration_@(item.Id)'>
+                        @Html.EditorFor(modelItem => item.Description)
+                    </span>
+                </td>
+                <td>
+                    <span id='qty_@(item.Id)'>
+                        <div class="editor-numeric-short">@Html.EditorFor(modelItem => item.Qty)</div>
+                    </span>
+                </td>
+                <td>
+                    <span id='sets_@(item.Id)'>
+                        <div class="editor-numeric-short">@Html.EditorFor(modelItem => item.UnitPrice)</div>
+                    </span>
+                </td>
+                <td>
+                    <span id='remark_@(item.Id)'>
+                        <div class="editor-numeric-short">@Html.EditorFor(modelItem => item.Discount)</div>
+                    </span>
+                </td>*@
+                <td><div class="editor-long"><input class="form-control" type="text" name="OrderDetails[@(item.Id)].Description" data-id="@(item.Id)" value="@(item.Description)" /></div></td>
+                <td><div class="editor-numeric-short calc"><input class="form-control" type="text" name="OrderDetails[@(item.Id)].Qty" data-id="@(item.Id)" value="@(String.Format("{0:G29}", item.Qty))" /></div></td>
+                <td><div class="editor-numeric calc"><input class="form-control" type="text" name="OrderDetails[@(item.Id)].UnitPrice" data-id="@(item.Id)" value="@(item.UnitPrice)" /></div></td>
+                <td><div class="editor-numeric-short calc"><input class="form-control" type="text" name="OrderDetails[@(item.Id)].Discount" data-id="@(item.Id)" value="@(String.Format("{0:G29}",item.Discount))" /></div></td>
+                <td class="text-right"><div class="editor-numeric"><span name="OrderDetails[@(item.Id)].Amount" data-id="@(item.Id)"></span></div></td>
+                        
+                <td>
+                    <a href='#' id='@item.Id' data-url="OrderDetails" title="Delete"  hreflang="delete_href"><i class="glyphicon glyphicon-trash"></i></a>
+                </td>
+            </tr>
+}
+        <tfoot>
+        @for (int i = 0; i < 2; i++)
+        {
+            <tr data-counter="@(i)">
+                <td><div class="editor-long"><input class="form-control" type="text" name="OrderDetail[@(i)].Description" /></div></td>
+                <td><div class="editor-numeric-short calc"><input class="form-control text-right" type="text" name="OrderDetail[@(i)].Qty" value="0" /></div></td>
+                <td><div class="editor-numeric calc"><input class="form-control" type="text" name="OrderDetail[@(i)].UnitPrice" value="0" /></div></td>
+                <td><div class="editor-numeric-short calc"><input class="form-control" type="text" name="OrderDetail[@(i)].Discount" value="0" /></div></td>
+                <td class="text-right"><div class="editor-numeric"><span name="OrderDetail[@(i)].Amount"></span></div></td>
+                <td></td>
+            </tr>
+        }
+        </tfoot>
+    </table>
+  <a href="#" title="Add more" id="add"> <i class="glyphicon glyphicon-plus"></i>  </a>

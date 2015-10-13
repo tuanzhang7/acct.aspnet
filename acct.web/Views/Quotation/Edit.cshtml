@@ -1,0 +1,24 @@
+﻿@model acct.common.POCO.Quotation
+
+@{
+    ViewBag.Title = "Edit Quotation";
+    
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.Partial("~/Views/Order/_Form.cshtml",Model)
+    <p></p>
+    @Html.Partial("~/Views/Order/_FormDetail.cshtml", Model.OrderDetail)
+    <p></p>
+    <p>
+        <div class="action-links">
+            <input type="submit" class="button" value="Save" />
+            @Html.ActionLink("Cancel", "Details", new { id=Model.Id })
+        </div>
+    </p>
+}
+@section scripts{
+    <script src="~/Scripts/order/create.js"></script>
+}

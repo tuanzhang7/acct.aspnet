@@ -1,0 +1,28 @@
+﻿@model acct.common.POCO.Customer
+
+@{
+    ViewBag.Title = "Edit Customer";
+    
+}
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    Html.RenderPartial("~/Views/Customer/_Form.cshtml", Model);
+    <div class="detailview">
+        <div class="row">
+            <div class="editor-label">
+                @Html.LabelFor(model => model.idmas_GST)
+            </div>
+        <div class="display-field">
+                @Html.DropDownList("idmas_GST", (SelectList)ViewBag.idmas_GST, new { @class = "form-control" })
+				@Html.ValidationMessageFor(model => model.idmas_GST)
+			</div>
+		</div>
+            <div class="action-links">
+                <input type="submit" class="button" value="Save" />
+                <a class="button"  href='@Url.Action("Index", "Customer")'>Back to List</a>
+            </div>
+    </div>
+}
+

@@ -1,0 +1,64 @@
+﻿@model IPagedList<acct.common.POCO.Customer>
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Customers";
+    
+}
+@using (Html.BeginForm("Index", "Customer", FormMethod.Get, new { id = "searchForm", @class = "form-horizontal", role = "form" }))
+{
+    Html.RenderPartial("~/Views/Shared/_SearchBox.cshtml");
+}
+<div class="navbar navbar-inner block-header margin-top30">
+
+    <div class="pull-right">
+        <a class="btn btn-primary" href=@Url.Action("Create", "Customer") role="button"><i class="fa fa-plus"></i> New</a>
+    </div>
+</div>
+<table class="table table-hover margin-top15">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Phone)
+            </th>
+           
+            <th>
+                @Html.DisplayNameFor(model => model.First().ContactName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr id='row@(item.Id)'>
+            <td>
+                @Html.ActionLink(item.Name, "Details", new { id = item.Id })
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.ContactName)
+            </td>
+            <td>
+                <a href='@Url.Action("Edit", "Customer", new { id = item.Id })' title="Edit"><i class="glyphicon glyphicon-pencil"></i></a>
+                @*<a href='#' id='@item.Id' data-url="Customer" hreflang="delete_href">Delete</a>*@
+            </td>
+        </tr>
+    }
+</table>
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page, q = ViewBag.q }))
+@section scripts{
+    @Scripts.Render("~/bundles/typeahead")
+    <script type="text/javascript">
+        $(function () {
+            initTypeahead('../../Customer/lookup?q=%QUERY');
+        });
+    </script>
+}
+

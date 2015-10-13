@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "Customers ng";
+}
+<div class="navbar navbar-inner block-header margin-top30">
+
+    <div class="pull-right">
+        <a class="btn btn-primary" href=@Url.Action("Create", "Customer") role="button"><i class="fa fa-plus"></i> New</a>
+    </div>
+</div>
+<div id="bodyContainer" ng-app="acctApp">
+    <div ng-controller="customerController">
+        <table class="table table-hover margin-top15">
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Phone
+                    </th>
+
+                    <th>
+                        ContactName
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tr ng-repeat="customer in customers" ng-cloak>
+                <td>
+                    <a ng-href='/Customer/Details/{{customer.Id}}' title="Edit" ng-bind="customer.Name"></a>
+                    @*@Html.ActionLink(item.Name, "Details", new { id = item.Id })*@
+                </td>
+
+                <td>
+                    {{customer.Phone}}
+                </td>
+
+                <td>
+                    {{customer.ContactName}}
+                </td>
+                <td>
+                    
+                    <a ng-href='/Customer/Edit/{{customer.Id}}' title="Edit"><i class="glyphicon glyphicon-pencil"></i></a>
+                    @*<a href='@Url.Action("Edit", "Customer", new { id = item.Id })' title="Edit"><i class="glyphicon glyphicon-pencil"></i></a>*@
+                    @*<a href='#' id='@item.Id' data-url="Customer" hreflang="delete_href">Delete</a>*@
+                </td>
+            </tr>
+
+        </table>
+    </div>
+
+</div>
+
+@section scripts {
+    
+    @Scripts.Render("~/Scripts/app/services/customer-servcie.js")
+    @Scripts.Render("~/Scripts/app/app.js")
+    @Scripts.Render("~/Scripts/app/controllers/customer-controller.js")
+    
+}

@@ -1,0 +1,69 @@
+﻿@model acct.common.POCO.Order
+
+@{
+    ViewBag.Title = "Edit Order";
+    
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.Partial("_Form")
+    <p></p>
+    @Html.Partial("_FormDetail", Model.OrderDetail)
+    <p></p>
+    <p>
+        <input type="submit" value="Save" />
+    </p>
+}
+@section scripts{
+    <script lang="javascript" type="text/javascript">
+        $("#add").on('click', function () {
+            var new_counter = GetLastCounter();
+            var row = '<tr data-counter=' + new_counter + '>';
+            row += '<td><input type="text" name="OrderDetail[' + new_counter + '].Description" /></td>';
+            row += '<td><div class="editor-numeric-short"><input type="text" name="OrderDetail[' + new_counter + '].Qty" value="0"/></div></td>';
+            row += '<td><div class="editor-numeric-short"><input type="text" name="OrderDetail[' + new_counter + '].UnitPrice" value="0"/></div></td>';
+            row += '<td><div class="editor-numeric-short"><input type="text" name="OrderDetail[' + new_counter + '].Discount" value="0"/></div></td>';
+            row += '<td></td>';
+            row += '</tr>';
+
+            $('.data-table tfoot tr:last').after(row);
+
+            return false;
+        });
+
+        
+        $('.editor-numeric-short').find("input").blur(function () {
+            var id = $(this).data("id");
+            calcTotal(id);
+        });
+        $(function () {
+            showTotal();
+        });
+        function showTotal() {
+            //run through each row
+            $('.data-table tr').each(function (i, row) {
+                var id = $(row).data("id");
+                calcTotal(id);
+            });
+        }
+        function calcTotal(id) {
+            var qty = $('[name="OrderDetail[' + id + '].Qty"]').val();
+            var unitprice = $('[name="OrderDetail[' + id + '].UnitPrice"]').val();
+            var discount = $('[name="OrderDetail[' + id + '].Discount"]').val();
+
+            var total = getTotal(qty, unitprice, discount);
+            $('[name="OrderDetail[' + id + '].Amount"]').val(total);
+        }
+        function getTotal(qty,unitprice,discount) {
+            var total = qty * unitprice;
+            if (discount > 0 && discount < 100) {
+                total = total * (100 - discount) / 100;
+            }
+            return total.toFixed(2);
+        }
+
+
+    </script>
+}

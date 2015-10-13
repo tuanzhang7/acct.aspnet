@@ -1,0 +1,21 @@
+﻿@model acct.common.POCO.Order
+
+@{
+    ViewBag.Title = "Create Order";
+    
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.Partial("_Form")
+    <p></p>
+    @Html.Partial("_FormDetail", Model.OrderDetail)
+    <p></p>
+    <p>
+        <input type="submit" value="Save" />
+    </p>
+}
+@section scripts{
+    <script src="~/Scripts/order/create.js"></script>
+}

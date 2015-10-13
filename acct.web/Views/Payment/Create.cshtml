@@ -1,0 +1,21 @@
+﻿@model acct.common.POCO.Payment
+
+@{
+    ViewBag.Title = "Receive Payment";
+
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.Partial("~/Views/Order/_Form.cshtml", Model)
+    <p></p>
+    @Html.Partial("~/Views/Order/_FormDetail.cshtml", Model.OrderDetail)
+    <p></p>
+    <p>
+        <input type="submit" value="Save" />
+    </p>
+}
+@section scripts{
+    <script src="~/Scripts/order/create.js"></script>
+}

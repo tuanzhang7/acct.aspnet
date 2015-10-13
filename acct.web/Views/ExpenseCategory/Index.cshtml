@@ -1,0 +1,35 @@
+﻿@model IEnumerable<acct.common.POCO.ExpenseCategory>
+
+@{
+    ViewBag.Title = "ExpenseCategory List";
+    
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+@foreach (var item in Model) {
+    <tr id='row@(item.Id)'>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            <a href='#' id='@item.Id' data-url="ExpenseCategory" hreflang="delete_href">Delete</a>
+        </td>
+    </tr>
+}
+
+</table>
+<p></p>
+<a class="button" href='@Url.Action("Create", "ExpenseCategory")'>New</a>
+@section scripts{
+
+}

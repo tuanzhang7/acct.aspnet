@@ -1,0 +1,31 @@
+﻿@model acct.common.POCO.Expense
+
+<div class="detailview">
+    <div class="row">
+        <div class="display-label">
+            @Html.LabelFor(model => model.Date)
+        </div>
+        <div class="display-field">
+            @Html.EditorFor(model => model.Date, "Date")
+            @Html.ValidationMessageFor(model => model.Date)
+        </div>
+    </div>
+    <div class="row">
+        <div class="display-label">
+            @Html.LabelFor(model => model.Amount)
+        </div>
+        <div class="display-field">
+            @Html.EditorFor(model => model.Amount)
+            @Html.ValidationMessageFor(model => model.Amount)
+        </div>
+    </div>
+    <div class="row">
+        <div class="display-label">
+            @Html.LabelFor(model => model.Remark)
+        </div>
+        <div class="display-field">
+            @Html.EditorFor(model => model.Remark)
+            @Html.ValidationMessageFor(model => model.Remark)
+        </div>
+    </div>
+</div>

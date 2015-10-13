@@ -1,0 +1,23 @@
+﻿@model acct.common.POCO.Salesman
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div class="detailview">
+        <div class="row">
+            <div class="display-label">
+				@Html.LabelFor(model => model.Name)
+			</div>
+        <div class="display-field">
+				@Html.EditorFor(model => model.Name)
+				@Html.ValidationMessageFor(model => model.Name)
+			</div>
+		</div>
+        
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </div>
+}
+

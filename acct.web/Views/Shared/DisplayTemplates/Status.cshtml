@@ -1,0 +1,29 @@
+﻿@model Int32?
+
+@*Unpaid= 1,
+Partial = 2,
+Paid = 3,
+Overdue=4*@
+
+@{
+    if (Model == null)
+    {
+        <span class="label label-default"></span>
+    }
+    else if (Model == 1)
+    {
+        <span class="label label-default">@acct.common.POCO.Order.StatusOptions.Unpaid.ToString()</span>
+    }
+    else if (Model == 2)
+    {
+        <span class="label label-warning">@acct.common.POCO.Order.StatusOptions.Partial.ToString()</span>
+    }
+    else if (Model == 3)
+    {
+        <span class="label label-success">@acct.common.POCO.Order.StatusOptions.Paid.ToString()</span>
+    }
+    else if (Model == 4)
+    {
+        <span class="label label-danger">@acct.common.POCO.Order.StatusOptions.Overdue.ToString()</span>
+    }
+}

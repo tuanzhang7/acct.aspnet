@@ -1,0 +1,216 @@
+﻿@{
+    ViewBag.Title = "Salesman Dashboard";
+}
+<style>
+    #chartdiv, #chartdiv_salesby_customer, #chartdiv_salesby_salesman {
+        height: 300px;
+    }
+</style>
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-file-o fa-fw"></i> My Quotations 
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Quotation Number </th>
+                            <th>Customer</th>
+                            <th>Order Date</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>@Html.ActionLink("045935", "Details", "Invoice", new { id = 4667 }, null)</td>
+                            <td>2ADVANCED PTE LTD </td>
+                            <td>28/10/2014 </td>
+                            <td><a href='@Url.Action("Edit", "Invoice", new { id = 4667 })' title="Edit"><i class="glyphicon glyphicon-pencil"></i></a></td>
+                        </tr>
+                        <tr>
+                            <td>@Html.ActionLink("045934", "Details", new { id = 4667 })</td>
+                            <td>VISIONICS ENGINEERING PTE LTD. </td>
+                            <td>28/10/2014 </td>
+                            <td><a href='@Url.Action("Edit", "Invoice", new { id = 4667 })' title="Edit"><i class="glyphicon glyphicon-pencil"></i></a></td>
+                        </tr>
+                        <tr>
+                            <td>@Html.ActionLink("045933", "Details", new { id = 4667 })</td>
+                            <td>T.O.P DESIGN & ENGINEERING PTE LTD </td>
+                            <td>28/10/2014 </td>
+                            <td><a href='@Url.Action("Edit", "Invoice", new { id = 4667 })' title="Edit"><i class="glyphicon glyphicon-pencil"></i></a></td>
+                        </tr>
+                        <tr>
+                            <td>@Html.ActionLink("045932", "Details", new { id = 4667 })</td>
+                            <td>T.O.P DESIGN & ENGINEERING PTE LTD </td>
+                            <td>28/10/2014 </td>
+                            <td><a href='@Url.Action("Edit", "Invoice", new { id = 4667 })' title="Edit"><i class="glyphicon glyphicon-pencil"></i></a></td>
+                        </tr>
+                        <tr>
+                            <td>@Html.ActionLink("045931", "Details", new { id = 4667 })</td>
+                            <td>T.O.P DESIGN & ENGINEERING PTE LTD </td>
+                            <td>28/10/2014 </td>
+                            <td><a href='@Url.Action("Edit", "Invoice", new { id = 4667 })' title="Edit"><i class="glyphicon glyphicon-pencil"></i></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-line-chart fa-fw"></i> Monthly Sales
+            </div>
+            <div class="panel-body">
+                <div id="chartdiv" class="chartdiv"></div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-tasks fa-fw"></i> My Job Orders  
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Invoice Number </th>
+                            <th>Customer</th>
+                            <th>Order Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>@Html.ActionLink("055935", "Details", new { id = 4667 })</td>
+                            <td>2ADVANCED PTE LTD </td>
+                            <td>28/10/2014 </td>
+                            <td><a href='@Url.Action("Edit", "Invoice", new { id = 4667 })' title="Edit"><i class="glyphicon glyphicon-pencil"></i></a></td>
+                        </tr>
+                        <tr>
+                            <td>@Html.ActionLink("055934", "Details", new { id = 4667 })</td>
+                            <td>VISIONICS ENGINEERING PTE LTD. </td>
+                            <td>28/10/2014 </td>
+                            <td><a href='@Url.Action("Edit", "Invoice", new { id = 4667 })' title="Edit"><i class="glyphicon glyphicon-pencil"></i></a></td>
+                        </tr>
+                        <tr>
+                            <td>@Html.ActionLink("055933", "Details", new { id = 4667 })</td>
+                            <td>T.O.P DESIGN & ENGINEERING PTE LTD </td>
+                            <td>28/10/2014 </td>
+                            <td><a href='@Url.Action("Edit", "Invoice", new { id = 4667 })' title="Edit"><i class="glyphicon glyphicon-pencil"></i></a></td>
+                        </tr>
+                        <tr>
+                            <td>@Html.ActionLink("055932", "Details", new { id = 4667 })</td>
+                            <td>T.O.P DESIGN & ENGINEERING PTE LTD </td>
+                            <td>28/10/2014 </td>
+                            <td><a href='@Url.Action("Edit", "Invoice", new { id = 4667 })' title="Edit"><i class="glyphicon glyphicon-pencil"></i></a></td>
+                        </tr>
+                        <tr>
+                            <td>@Html.ActionLink("055931", "Details", new { id = 4667 })</td>
+                            <td>T.O.P DESIGN & ENGINEERING PTE LTD </td>
+                            <td>28/10/2014 </td>
+                            <td><a href='@Url.Action("Edit", "Invoice", new { id = 4667 })' title="Edit"><i class="glyphicon glyphicon-pencil"></i></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-bell-o fa-fw"></i> Quick Links
+            </div>
+            <div class="panel-body">
+                <div class="col-md-3">
+                    @Html.ActionLink("New Quotation ", "Create", "Quotation", new { page = "", Area = "" }, null)
+                </div>
+                <div class="col-md-4">
+                    @Html.ActionLink("New Purchase Order ", "Create", "Purchase", new { page = "", Area = "" }, null)
+                </div>
+                <div class="col-md-3">
+                    @Html.ActionLink("New Invoice ", "Create", "Invoice", new { page = "", Area = "" }, null)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Content/amcharts/amcharts.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/amcharts/serial.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/amcharts/pie.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/amcharts/pie.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/amcharts/themes/light.js")"></script>
+
+    <script type="text/javascript">
+        function showChart(year) {
+            var url = "../Invoice/GetMonthlyTotal?year=" + year;
+            $.getJSON(url, function (chartData) {
+                var chart = AmCharts.makeChart("chartdiv", {
+                    "type": "serial",
+                    "theme": "none",
+                    "dataProvider": chartData,
+                    "valueAxes": [{
+                        "gridColor": "#FFFFFF",
+                        "gridAlpha": 0.2,
+                        "dashLength": 0
+                    }],
+                    "gridAboveGraphs": true,
+                    "startDuration": 1,
+                    "graphs": [{
+                        "balloonText": "[[category]]:<b>[[value]]</b>",
+                        "fillAlphas": 0.8,
+                        "lineAlpha": 0.2,
+                        "type": "column",
+                        "valueField": "total"
+                    }],
+                    "graphs": [{
+                        "id": "g1",
+                        "bullet": "round",
+                        "bulletBorderAlpha": 1,
+                        "bulletColor": "#FFFFFF",
+                        "bulletSize": 5,
+                        "hideBulletsCount": 50,
+                        "lineThickness": 2,
+                        "title": "red line",
+                        "useLineColorForBulletBorder": true,
+                        "valueField": "total"
+                    }],
+                    "chartCursor": {
+                        "categoryBalloonEnabled": false,
+                        "cursorAlpha": 0,
+                        "zoomable": false
+                    },
+                    "categoryField": "month",
+                    "categoryAxis": {
+                        "gridPosition": "start",
+                        "gridAlpha": 0,
+                        "tickPosition": "start",
+                        "tickLength": 20
+                    },
+                    "exportConfig": {
+                        "menuTop": 0,
+                        "menuItems": [{
+                            "icon": '/lib/3/images/export.png',
+                            "format": 'png'
+                        }]
+                    }
+                });
+            });
+        }
+        
+        $(document).ready(function () {
+            var year = '2014-01-01';
+            showChart(year);
+
+        })
+    </script>
+
+
+}

@@ -1,0 +1,38 @@
+﻿@model IEnumerable<acct.common.POCO.UnitMeasure>
+
+@{
+    ViewBag.Title = "Unit measure Index";
+    
+}
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Code)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr id='row@(item.Id)'>
+        <td>
+            @Html.DisplayFor(modelItem => item.Code)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            <a href='#' id='@item.Id' data-url="UnitMeasure" hreflang="delete_href">Delete</a>
+        </td>
+    </tr>
+}
+
+</table>
+<div class="action-links">
+    @Html.ActionLink("New", "Create") 
+</div>

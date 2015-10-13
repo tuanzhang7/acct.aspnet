@@ -1,0 +1,61 @@
+﻿@model IEnumerable<acct.common.POCO.OrderDetail>
+@using acct.web.Helper
+@{
+    acct.common.POCO.OrderDetail newDetail = (acct.common.POCO.OrderDetail)ViewBag.NewDetail;
+}
+
+<table class="table table-hover margin-top30">
+    <thead>
+        <tr>
+            <th>
+                @Html.LabelFor(model => model.First().Description)
+            </th>
+            <th class="text-right">
+                @Html.LabelFor(model => model.First().Qty)
+            </th>
+            <th class="text-right">
+                @Html.LabelFor(model => model.First().UnitPrice)
+            </th>
+            <th class="text-right">
+                @Html.LabelFor(model => model.First().Discount)
+            </th>
+            <th class="text-right">
+                @Html.LabelFor(model => model.First().LineTotal)
+            </th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.Hidden("item_id_" + item.Id, item.Id)
+                <span id='Description_@(item.Id)'>
+                    @Html.FormatBody(item.Description)
+                </span>
+            </td>
+            <td class="text-right">
+                <span id='Qty_@(item.Id)'>
+                    @Html.DisplayFor(modelItem => item.Qty, "G29")
+                </span>
+            </td>
+            <td class="text-right">
+                <span id='UnitPrice_@(item.Id)'>
+                    @Html.DisplayFor(modelItem => item.UnitPrice)
+                </span>
+            </td>
+            <td class="text-right">
+                <span id='Discount_@(item.Id)'>
+                    @Html.DisplayFor(modelItem => item.Discount, "G29")%
+                </span>
+            </td>
+            <td class="text-right">
+                <span id='Amount_@(item.Id)'>
+                    @Html.DisplayFor(modelItem => item.LineTotal)
+                    @*@acct.web.Helper.ControllerHelper.GetTotal(item.Qty, item.UnitPrice, item.Discount)*@
+                </span>
+            </td>
+
+        </tr>
+    }
+</table>

@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Import Data from CSV files";
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div>
+        <label for="FileUploadSalesman">Salesman</label><input type="file" id="FileUploadSalesman" name="FileUploadSalesman" /><br />
+        <label for="FileUploadCustomer">Customer</label><input type="file" id="FileUploadCustomer" name="FileUploadCustomer" /><br />
+        <label>Invoice Header</label><input type="file" name="FileUploadInvoiceHeader" /><br />
+        <label>Invoice Detail</label><input type="file" name="FileUploadInvoiceDetail" /><br />
+        <label>Invoice</label><input type="file" name="FileUploadInvoice" /><br />
+        <label>Payment Header</label><input type="file" name="FileUploadPaymentHeader" /><br />
+        <label>Payment Detail</label><input type="file" name="FileUploadPaymentDetail" /><br />
+        <input type="submit" name="Submit" id="Submit" value="Import" />
+    </div>
+
+}
+@Html.Encode(ViewData["message"])
+

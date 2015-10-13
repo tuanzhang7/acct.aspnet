@@ -1,0 +1,114 @@
+﻿@*@using acct.web.Helper*@
+@{
+    ViewBag.Title = "ng detail";
+
+}
+<div id="bodyContainer" ng-app="acctApp">
+    <div ng-controller="customerDetailController">
+        <div class="navbar navbar-inner block-header">
+            @*Balance: @ViewBag.balance*@
+            <div class="pull-right">
+                <a class="btn btn-primary" ng-href='/Invoice/Create/{{customer.Id}}' role="button"><i class="fa fa-plus"></i> New Invoice</a>
+                <a class="btn btn-primary" ng-href='/Quotation/Create/{{customer.Id}}' role="button"><i class="fa fa-plus"></i> New Quotation</a>
+            </div>
+        </div>
+
+        <ul class="nav nav-tabs" role="tablist" id="myTab">
+            <li role="presentation"><a href="#sales" role="tab" data-toggle="tab">Transactions</a></li>
+            <li role="presentation"><a href="#customer" role="tab" data-toggle="tab">Customer Info</a></li>
+        </ul>
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="sales">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>@*Monthly Sales*@</h4>
+                        <div id="transactiondiv">
+                            @*@Html.Partial("~/Views/Invoice/_List.cshtml", (PagedList.PagedList<acct.common.POCO.Invoice>)ViewBag.RecentInvoice)*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="customer">
+                <div class="row margin-top30">
+                    <div class="col-md-12">
+                        <div class="detailview">
+                            <div class="row">
+                                <div class="display-label">
+                                    Address
+                                </div>
+                                <div class="display-field">
+                                    <address>
+                                        {{customer.Address}}
+                                    </address>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="display-label">
+                                    Phone
+                                </div>
+                                <div class="display-field">
+                                    {{customer.Phone}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="display-label">
+                                    Fax
+                                </div>
+                                <div class="display-field">
+                                    {{customer.Fax}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="display-label">
+                                    Email
+                                </div>
+                                <div class="display-field">
+                                    {{customer.Email}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="display-label">
+                                    Contact Name
+                                </div>
+                                <div class="display-field">
+                                    {{customer.ContactName}}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="display-label">
+                                    GST
+                                </div>
+                                <div class="display-field">
+                                    {{customer.GST.Rate}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="action-links">
+                            <a class="button"  ng-href='/Customer/Edit/{{customer.Id}}' title="Edit">Edit</a>
+                            @*<a class="button" href='@Url.Action("Edit", "Customer",new { id=Model.Id })'> Edit </a>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#myTab a:first').tab('show');
+        })
+    </script>
+
+    @Scripts.Render("~/Scripts/angular.js")
+    @Scripts.Render("~/Scripts/angular-resource.js")
+    @Scripts.Render("~/Scripts/app/services/customer-servcie.js")
+    @Scripts.Render("~/Scripts/app/app.js")
+    @Scripts.Render("~/Scripts/app/controllers/customer-controller.js")
+}
+
+
+

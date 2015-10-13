@@ -1,0 +1,67 @@
+﻿@model IPagedList<acct.common.POCO.Expense>
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Expenses";
+    
+}
+
+@using (Html.BeginForm("Search", "Expense", FormMethod.Get, new { id = "searchForm", @class = "form-horizontal", role = "form" }))
+{
+    Html.RenderPartial("~/Views/Shared/_SearchBox.cshtml");
+}
+<table class="table table-hover margin-top30">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Remark)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().CategoryId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr id='row@(item.Id)'>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date, "date")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Remark)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpenseCategory.Category)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                @*<a href='#' id='@item.Id' data-url="Expense" hreflang="delete_href">Delete</a>*@
+            </td>
+        </tr>
+    }
+
+</table>
+<p></p>
+<div class="action-links">
+    <a class="button" href='@Url.Action("Create", "Expense")'>New</a>
+    @Html.ActionLink("Print", "Print")
+</div>
+@section scripts{
+    @Scripts.Render("~/bundles/typeahead")
+    <script type="text/javascript">
+        $(function () {
+            initTypeahead('../../Expense/lookup?q=%QUERY');
+        });
+    </script>
+}
+

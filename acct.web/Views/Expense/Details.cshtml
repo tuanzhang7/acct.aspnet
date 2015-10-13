@@ -1,0 +1,45 @@
+﻿@model acct.common.POCO.Expense
+@using acct.web.Helper
+@{
+    ViewBag.Title = "Expense";
+    
+}
+<div class="detailview">
+    <div class="row">
+		<div class="display-label">
+			 @Html.DisplayNameFor(model => model.Date)
+		</div>
+		<div class="display-field">
+			@Html.DisplayFor(model => model.Date,"date")
+		</div>
+	</div>
+	<div class="row">
+		<div class="display-label">
+			 @Html.DisplayNameFor(model => model.Amount)
+		</div>
+		<div class="display-field">
+              @Html.DisplayFor(model => model.Amount)
+		</div>
+	</div>
+	<div class="row">
+		<div class="display-label">
+			 @Html.DisplayNameFor(model => model.Remark)
+		</div>
+		<div class="display-field">
+			@Html.DisplayFor(model => model.Remark)
+		</div>
+	</div>
+    <div class="row">
+        <div class="display-label">
+            @Html.LabelFor(model => model.CategoryId)
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.ExpenseCategory.Category)
+        </div>
+    </div>
+</div>
+
+<div class="action-links">
+    <a class="button" href='@Url.Action("Edit", "Expense",new { id=Model.Id })'  > Edit </a>
+    <a class="button" href='@Url.Action("Index", "Expense")'  >Back to List</a>
+</div>

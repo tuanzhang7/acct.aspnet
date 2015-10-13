@@ -1,0 +1,43 @@
+﻿@model IEnumerable<acct.common.POCO.Payment>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentMethod)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReferenceNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr id='row@(item.Id)'>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date,"Date")
+        </td>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.PaymentMethod)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReferenceNumber)
+        </td>
+         <td>
+            @Html.DisplayFor(modelItem => item.Amount,"Currency")
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+</table>
+

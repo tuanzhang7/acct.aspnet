@@ -1,0 +1,97 @@
+﻿@model acct.common.POCO.Invoice
+
+@{
+    ViewBag.Title = "Invoice " + Model.OrderNumber;
+}
+    <div class="row">
+        <div class="col-lg-11">
+            
+        </div>
+        <div class="col-lg-1 pull-right">
+            <h3>@Html.DisplayFor(model => model.Status, "Status")</h3>
+        </div>
+    </div>
+    @Html.Partial("~/Views/Order/_Details.cshtml", Model)
+
+    <div class="action-links">
+        
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+        <a href='@Url.Action("Print", "Invoice", new { id = Model.Id })' class="button" >
+            <i class="fa fa-print"></i> Print </a>
+        <a href='@Url.Action("PrintDO", "Invoice", new { id = Model.Id })' class="button" >
+            <i class="fa fa-print"></i> Print DO
+        </a>
+        @*<a href='@Url.Action("PrintQuotation", "Invoice", new { id = Model.Id })' class="button">
+            <i class="fa fa-print"></i> Print Quotation
+        </a>*@
+
+    </div>
+<div id="div_payments" class="detailview">
+    @*@if (Model.Paid) { <h3 class="paid">Paid</h3>}*@
+    @Html.Partial("~/Views/Payment/_ListItem.cshtml", Model.PaymentDetails)
+</div>
+
+<div class="modal" id="dialog-payment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Receive a Payment</h4>
+            </div>
+            <div class="modal-body">
+                <form id="payment-form">
+                    @Html.Hidden("invoiceId_payment", Model.Id)
+                    @Html.Partial("~/Views/Payment/_FormInvoice.cshtml", new acct.common.POCO.Payment(0, DateTime.Today))
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="button" id="btn-save-payment">Save</button>
+                <button class="button" data-dismiss="modal">Close</button>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(function () {
+            $('.actions').hide();
+
+            $('.addressRow').hover(function () {
+                $(this).children('.actions').show();
+            }, function () {
+                $(this).children('.actions').hide();
+            });
+            
+            $("#btn-save-payment").on("click", function (e) {
+                var invoiceid = $('#invoiceId_payment').val();
+                var amount = $("#Amount").val();
+                var remarks = $("#Remarks").val();
+                $.ajax({
+                    url: "../../Payment/Create",
+                    timeout: 30000,
+                    type: "POST",
+                    data: $('#payment-form').serialize(),
+                    dataType: 'json',
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert("An error has occurred making the request: " + errorThrown)
+                    },
+                    success: function (data) {
+                        if (data.success) {
+                            $("#dialog-payment").modal('hide');
+                            $("#div_payments").html(data.html).trigger('create');
+                            ShowMessage("Successful", true);
+                        }
+                        else {
+                            ShowError(data.errors, true);
+                        }
+                    }
+                });
+            });
+            
+        });
+        
+        
+    </script>
+}
+
