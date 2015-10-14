@@ -49,49 +49,14 @@ namespace acct.service
 
         }
 
-        public IQueryable<Invoice> GetByFilter(string status, int? CustomerId,
+        public IQueryable<Invoice> GetByFilter(List<Order.StatusOptions> statusList, int? CustomerId,
             DateRange.DateRangeFilter DateFilter = DateRange.DateRangeFilter.ThisMonth)
         {
-            var list = repo.GetAll();
 
-            if (status.ToLower() != "all")
-            {
-                Order.StatusOptions _status =
-                (Order.StatusOptions)Enum.Parse(typeof(Order.StatusOptions), status);
-
-                list = list.Where(o => o.Status == (int)_status);
-
-                //list = list.Where(o => o.Status == (int)Order.StatusOptions.Unpaid
-                //    || o.Status == (int)Order.StatusOptions.Partial
-                //    || o.Status == (int)Order.StatusOptions.Overdue);
-            }
-            else
-            {
-                
-            }
-
-            //if (CustomerId != null)
-            //{
-            //    if (CustomerId < 0) { throw new ArgumentException("Invalid Customer"); }
-            //    list = list.Where(o => o.CustomerId == CustomerId);
-            //}
-            if (DateFilter != DateRange.DateRangeFilter.AnyTime)
-            {
-                DateRange dRange = DateRange.GetDateRange(DateTime.Today, DateFilter);
-                list = list.Where(o => o.OrderDate >= dRange.StartDate && o.OrderDate <= dRange.EndDate);
-            }
-
-            IQueryable<Invoice> result = list.OrderByDescending(o => o.OrderNumber);
-            return result;
+            return repo.GetByFilter(statusList, CustomerId, DateFilter) ;
 
         }
-
         
-        public List<Invoice> GetOpenInvoicesLastYear()
-        {
-            return this.GetByFilter("open",null,DateRange.DateRangeFilter.Last365Days).ToList();
-        }
-
         public object GetMonthlyTotal(DateTime year)
         {
             var result = from s in repo.GetAll().Where(i => i.OrderDate > year)

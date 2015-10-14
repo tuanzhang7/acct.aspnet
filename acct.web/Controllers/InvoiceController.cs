@@ -32,13 +32,27 @@ namespace acct.web.Controllers
             customerSvc = new CustomerSvc(iCustomerRepo);
             salesmanSvc = new SalesmanSvc(iSalesmanRepo);
         }
-        public ActionResult Index(int? page, int? dateRange, string status = "Open")
+        public ActionResult Index(int? page, int? dateRange, List<string> status)
         {
             int pageSize = int.Parse(ConfigurationManager.AppSettings["pageSize"]);
             int _page = page == null ? 1 : (int)page;
             DateRange.DateRangeFilter drFilter = dateRange == null ? DateRange.DateRangeFilter.AnyTime : (DateRange.DateRangeFilter)dateRange;
 
-            IPagedList<Invoice> onePageOfProducts = svc.GetByFilter(status, null, drFilter)
+            List<Order.StatusOptions> statusList = new List<Order.StatusOptions>();
+            if (status != null)
+            {
+                foreach (var item in status)
+                {
+                    Order.StatusOptions _status =
+                    (Order.StatusOptions)Enum.Parse(typeof(Order.StatusOptions), item);
+                    statusList.Add(_status);
+                }
+            }
+            else
+            {
+                statusList.Add(Order.StatusOptions.Unpaid);
+            }
+            IPagedList<Invoice> onePageOfProducts = svc.GetByFilter(statusList, null, drFilter)
                 .ToPagedList(_page, pageSize);
 
             return View(onePageOfProducts);

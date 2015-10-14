@@ -34,13 +34,34 @@ namespace acct.webapi.Controllers
         /// <param name="status">All|Unpaid|Partial|Overdue|Paid</param>
         /// <returns></returns>
         //[Route("/{dateRange}")]
-        public IHttpActionResult Get(string dateRange , int page = 1, int pageSize = 20, string status = "All")
+        public IHttpActionResult Get(string dateRange , [FromUri]List<string> status, int page = 1, int pageSize = 20)
         {
             DateRange.DateRangeFilter drFilter = 
                 (DateRange.DateRangeFilter)Enum.Parse(typeof(DateRange.DateRangeFilter), dateRange);
             //DateRange.DateRangeFilter drFilter =(DateRange.DateRangeFilter)dateRange;
 
-            IPagedList<Invoice> pagedList = svc.GetByFilter(status, null, drFilter)
+            List<Order.StatusOptions> statusList = new List<Order.StatusOptions>();
+            if (status != null)
+            {
+                foreach (var item in status)
+                {
+                    Order.StatusOptions _status;
+
+                    //Order.StatusOptions _status =
+                    //(Order.StatusOptions)Enum.Parse(typeof(Order.StatusOptions), item);
+
+                    if (Enum.TryParse(item, out _status))
+                    {
+                        statusList.Add(_status);
+                    }
+                }
+            }
+            else
+            {
+                statusList.Add(Order.StatusOptions.Unpaid);
+            }
+
+            IPagedList<Invoice> pagedList = svc.GetByFilter(statusList, null, drFilter)
                .ToPagedList(page, pageSize);
 
             var paginationHeader = new

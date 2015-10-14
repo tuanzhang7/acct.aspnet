@@ -15,16 +15,20 @@ namespace acct.webapi.Controllers
         {
             InvoiceSvc svc = new InvoiceSvc();
 
-            List<Invoice> OpenInvoicesLastYear = svc.GetOpenInvoicesLastYear();
+            List<Invoice> OpenInvoicesLastYear = svc.GetByFilter(new List<Order.StatusOptions>{ Order.StatusOptions.Paid }, null, common.Helper.DateRange.DateRangeFilter.Last365Days).ToList();
             decimal OpenInvOutstandingAmount = OpenInvoicesLastYear == null ? 0 : OpenInvoicesLastYear.Sum(i => i.AmountOutstanding);
             int TotalNumOfOpenInv = OpenInvoicesLastYear == null ? 0 : OpenInvoicesLastYear.Count();
 
-
-            decimal ReceivedAmount = svc.GetByFilter("closed", null, common.Helper.DateRange.DateRangeFilter.Last3Month)
+            List<Order.StatusOptions> Closed = new List<Order.StatusOptions> {
+                Order.StatusOptions.Unpaid,
+                Order.StatusOptions.Partial,
+                Order.StatusOptions.Overdue,
+            };
+            decimal ReceivedAmount = svc.GetByFilter(Closed, null, common.Helper.DateRange.DateRangeFilter.Last3Month)
                 .Select(c => c.AmountPaid)
                 .DefaultIfEmpty()
                 .Sum();
-            int TotalNumOfPaidInv = svc.GetByFilter("closed", null, common.Helper.DateRange.DateRangeFilter.Last3Month)
+            int TotalNumOfPaidInv = svc.GetByFilter(Closed, null, common.Helper.DateRange.DateRangeFilter.Last3Month)
                 .Count();
 
 
