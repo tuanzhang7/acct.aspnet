@@ -14,7 +14,7 @@ using System.Web.Http.Cors;
 
 namespace acct.webapi.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [RoutePrefix("api/customer")]
     [EnableCors(origins: "*", headers: "*", methods: "*", exposedHeaders: "X-Pagination")]
     public class CustomerController : ApiController

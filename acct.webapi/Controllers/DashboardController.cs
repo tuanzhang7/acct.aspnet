@@ -9,6 +9,7 @@ using System.Web.Http;
 
 namespace acct.webapi.Controllers
 {
+    [Authorize]
     public class DashboardController : ApiController
     {
         public IHttpActionResult Get()

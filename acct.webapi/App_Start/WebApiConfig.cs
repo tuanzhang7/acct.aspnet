@@ -23,11 +23,12 @@ namespace acct.webapi
             config.MapHttpAttributeRoutes();
 
             var cors = new EnableCorsAttribute(
-            origins: "*",
+            origins: "http://localhost:1332",
             headers: "*",
             methods: "*",
             exposedHeaders:"*");
 
+            
             config.EnableCors(cors);
 
 
