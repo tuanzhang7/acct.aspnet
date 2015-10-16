@@ -16,6 +16,7 @@ using AutoMapper;
 using acct.webapi.Helper;
 namespace acct.webapi.Controllers
 {
+    [Authorize]
     [RoutePrefix("api/Invoice")]
     [EnableCors(origins: "*", headers: "*", methods: "*", exposedHeaders: "X-Pagination")]
     public class InvoiceController : ApiController
