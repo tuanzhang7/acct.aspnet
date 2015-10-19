@@ -205,7 +205,7 @@ namespace acct.webapi.Controllers
 
             return Ok(json);
         }
-        
+        [AllowAnonymous]
         [HttpGet]
         [Route("print/{id}")]
         public HttpResponseMessage Print(int id)
@@ -223,8 +223,8 @@ namespace acct.webapi.Controllers
             
             var res = new HttpResponseMessage(HttpStatusCode.OK);
             res.Content = new ByteArrayContent(bytes);
-            res.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
-            res.Content.Headers.ContentDisposition.FileName = fileName;
+            //res.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+            //res.Content.Headers.ContentDisposition.FileName = fileName;
             res.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
 
             return res;
