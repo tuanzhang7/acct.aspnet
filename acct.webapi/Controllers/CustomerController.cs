@@ -16,7 +16,7 @@ namespace acct.webapi.Controllers
 {
     [Authorize]
     [RoutePrefix("api/customer")]
-    [EnableCors(origins: "*", headers: "*", methods: "*", exposedHeaders: "X-Pagination")]
+    //[EnableCors(origins: "*", headers: "*", methods: "*", exposedHeaders: "X-Pagination")]
     public class CustomerController : ApiController
     {
         CustomerSvc svc;

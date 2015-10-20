@@ -18,7 +18,7 @@ namespace acct.webapi.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Invoice")]
-    [EnableCors(origins: "*", headers: "*", methods: "*", exposedHeaders: "X-Pagination")]
+    //[EnableCors(origins: "*", headers: "*", methods: "*", exposedHeaders: "X-Pagination")]
     public class InvoiceController : ApiController
     {
         InvoiceSvc svc;
@@ -205,7 +205,7 @@ namespace acct.webapi.Controllers
 
             return Ok(json);
         }
-        [AllowAnonymous]
+
         [HttpGet]
         [Route("print/{id}")]
         public HttpResponseMessage Print(int id)
@@ -220,13 +220,12 @@ namespace acct.webapi.Controllers
             Byte[] bytes = cHelper.GetOrderReport((Order)dto, "Invocie");
             string fileName = "Invocie_" + _entity.OrderNumber + ".pdf";
 
-            
+
             var res = new HttpResponseMessage(HttpStatusCode.OK);
             res.Content = new ByteArrayContent(bytes);
-            //res.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
-            //res.Content.Headers.ContentDisposition.FileName = fileName;
+            res.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+            res.Content.Headers.ContentDisposition.FileName = fileName;
             res.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
-
             return res;
         }
     }

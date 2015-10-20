@@ -28,7 +28,9 @@ namespace acct.webapi
             methods: "*",
             exposedHeaders:"*");
 
-            
+            cors.ExposedHeaders.Add("Content-Disposition");
+            cors.ExposedHeaders.Add("X-Pagination");
+
             config.EnableCors(cors);
 
 
