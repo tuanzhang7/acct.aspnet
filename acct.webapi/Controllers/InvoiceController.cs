@@ -22,9 +22,11 @@ namespace acct.webapi.Controllers
     public class InvoiceController : ApiController
     {
         InvoiceSvc svc;
-        public InvoiceController(IInvoiceRepo iInvoiceRepo)
+        OrderDetailSvc odSvc;
+        public InvoiceController(IInvoiceRepo iInvoiceRepo,IOrderDetailRepo iOrderDetailRepo)
         {
             svc = new InvoiceSvc(iInvoiceRepo);
+            odSvc = new OrderDetailSvc(iOrderDetailRepo);
         }
         /// <summary>
         /// filter inovice by data range and status
@@ -227,6 +229,57 @@ namespace acct.webapi.Controllers
             res.Content.Headers.ContentDisposition.FileName = fileName;
             res.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
             return res;
+        }
+
+        [HttpPost]
+        public HttpResponseMessage Post([FromBody]Invoice entity)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    //add
+                    if (entity.Id == 0)
+                    {
+                        svc.Save(entity);
+                        foreach (var detail in entity.OrderDetail)
+                        {
+                            if (detail.Id == 0)
+                            {
+                                detail.OrderId = entity.Id;
+                                odSvc.Save(detail);
+                            }
+                        }
+                    }
+                    //edit
+                    else
+                    {
+                        foreach (var detail in entity.OrderDetail)
+                        {
+                            if (detail.Id == 0)
+                            {
+                                detail.OrderId = entity.Id;
+                                odSvc.Save(detail);
+                            }
+                            else
+                            {
+                                odSvc.Update(detail);
+                            }
+                        }
+
+                        entity.Customer = null;
+                        entity.OrderDetail = null;
+                        svc.Update(entity);
+                        
+                    }
+                    return Request.CreateResponse(HttpStatusCode.OK, entity);
+                }
+                catch (Exception ex)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+                }
+            }
+            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
         }
     }
 }

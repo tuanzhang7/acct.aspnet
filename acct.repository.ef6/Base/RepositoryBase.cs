@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using acct.common.Base;
 using EntityFramework.BulkInsert.Extensions;
+using System.Data.Entity;
+
 namespace acct.repository.ef6.Base
 {
     
@@ -82,8 +84,8 @@ namespace acct.repository.ef6.Base
         }
         public void Update(T entity)
         {
-            //context.Set<T>().Attach(entity);
-            //context.Entry(entity).State = System.Data.EntityState.Modified;
+            context.Set<T>().Attach(entity);
+            context.Entry(entity).State = EntityState.Modified;
             context.SaveChanges();
         }
         

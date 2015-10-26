@@ -105,14 +105,8 @@ namespace acct.webapi.Controllers
                     }
                     else
                     {
-                        Customer _entity = svc.GetById(customer.Id);
-                        _entity.Name = customer.Name;
-                        _entity.Address = customer.Address;
-                        _entity.Phone = customer.Phone;
-                        _entity.Fax = customer.Fax;
-                        _entity.Email = customer.Email;
-                        _entity.ContactName = customer.ContactName;
-                        _entity.idmas_GST = customer.idmas_GST;
+                        //set customer.idmas_GST , set GST null
+                        customer.GST = null;
 
                         svc.Update(customer);
                     }
