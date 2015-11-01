@@ -72,6 +72,7 @@ namespace acct.webapi.App_Start
             kernel.Bind<IOrderDetailRepo>().To<OrderDetailRepo>();
             kernel.Bind<IPaymentRepo>().To<PaymentRepo>();
             kernel.Bind<IPaymentDetailRepo>().To<PaymentDetailRepo>();
+            kernel.Bind<IOptionsRepo>().To<OptionsRepo>();
         }        
     }
 }

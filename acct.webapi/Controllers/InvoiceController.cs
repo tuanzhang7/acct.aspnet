@@ -23,10 +23,12 @@ namespace acct.webapi.Controllers
     {
         InvoiceSvc svc;
         OrderDetailSvc odSvc;
-        public InvoiceController(IInvoiceRepo iInvoiceRepo,IOrderDetailRepo iOrderDetailRepo)
+        OptionsSvc optionsSvc;
+        public InvoiceController(IInvoiceRepo iInvoiceRepo,IOrderDetailRepo iOrderDetailRepo, IOptionsRepo ioptionsRepo)
         {
             svc = new InvoiceSvc(iInvoiceRepo);
             odSvc = new OrderDetailSvc(iOrderDetailRepo);
+            optionsSvc = new OptionsSvc(ioptionsRepo);
         }
         /// <summary>
         /// filter inovice by data range and status
@@ -280,6 +282,14 @@ namespace acct.webapi.Controllers
                 }
             }
             return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+        }
+
+        [HttpGet]
+        [Route("getNextInvoiceNumber")]
+        public IHttpActionResult GetNextInvoiceNumber()
+        {
+            string nextNumber= optionsSvc.GetNextInvoiceNumber();
+            return Ok(new { nextNumber = nextNumber });
         }
     }
 }
