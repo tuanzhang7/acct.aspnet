@@ -336,8 +336,8 @@
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="Metadata\deploymentTemplates\apiappconfig.azureresource.json" />
     <Content Include="apiapp.json" />
-    <None Include="Properties\PublishProfiles\acct.webapi%28default-web-southeastasia%29 %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\acct.webapi%28Default-Web-SoutheastAsia%29.pubxml" />
+    <None Include="Properties\PublishProfiles\acctapi.pubxml" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />

@@ -6,6 +6,7 @@ using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 using System.Web.Http.Cors;
+using System.Configuration;
 
 namespace acct.webapi
 {
@@ -21,9 +22,9 @@ namespace acct.webapi
 
             // Web API routes
             config.MapHttpAttributeRoutes();
-
+            string Cors_origins = ConfigurationManager.AppSettings["Cors_origins"];
             var cors = new EnableCorsAttribute(
-            origins: "http://localhost:1337",
+            origins: Cors_origins,
             headers: "*",
             methods: "*",
             exposedHeaders:"*");
