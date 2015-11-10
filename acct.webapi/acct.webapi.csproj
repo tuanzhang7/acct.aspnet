@@ -283,6 +283,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\InvoiceController.cs" />
+    <Compile Include="Controllers\ToolsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -338,6 +339,7 @@
     <Content Include="apiapp.json" />
     <None Include="Properties\PublishProfiles\acct.webapi%28Default-Web-SoutheastAsia%29.pubxml" />
     <None Include="Properties\PublishProfiles\acctapi.pubxml" />
+    <None Include="Properties\PublishProfiles\acctapi.thickpotential.com.sg - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
@@ -360,9 +362,11 @@
     </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
     <Content Include="Content\Site.css" />
@@ -375,6 +379,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Tools\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
