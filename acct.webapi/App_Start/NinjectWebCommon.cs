@@ -67,6 +67,7 @@ namespace acct.webapi.App_Start
             kernel.Bind<ICustomerRepo>().To<CustomerRepo>();
             kernel.Bind<IGSTRepo>().To<GSTRepo>();
             kernel.Bind<IInvoiceRepo>().To<InvoiceRepo>();
+            kernel.Bind<IQuotationRepo>().To<QuotationRepo>();
             kernel.Bind<IExpenseRepo>().To<ExpenseRepo>();
             kernel.Bind<IExpenseCategoryRepo>().To<ExpenseCategoryRepo>();
             kernel.Bind<IOrderDetailRepo>().To<OrderDetailRepo>();
