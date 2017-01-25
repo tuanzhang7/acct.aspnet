@@ -221,8 +221,8 @@ namespace acct.webapi.Controllers
 
             Quotation dto = Mapper.Map<acct.common.POCO.Quotation, Quotation>(_entity);
             ControllerHelper cHelper=new ControllerHelper();
-            Byte[] bytes = cHelper.GetOrderReport((Order)dto, "Invocie");
-            string fileName = "Invocie_" + _entity.OrderNumber + ".pdf";
+            Byte[] bytes = cHelper.GetOrderReport((Order)dto, "Quotation");
+            string fileName = "Quotation_" + _entity.OrderNumber + ".pdf";
 
 
             var res = new HttpResponseMessage(HttpStatusCode.OK);
