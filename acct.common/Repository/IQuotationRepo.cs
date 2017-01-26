@@ -10,6 +10,6 @@ namespace acct.common.Repository
 {
     public interface IQuotationRepo : IRepositoryBase<Quotation, int>
     {
-        IQueryable<Quotation> GetByFilter(List<Order.StatusOptions> statusList, int? customerId, DateRange.DateRangeFilter dateFilter);
+        IQueryable<Quotation> GetByFilter(int? customerId, DateRange.DateRangeFilter dateFilter);
     }
 }

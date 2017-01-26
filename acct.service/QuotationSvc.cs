@@ -49,11 +49,11 @@ namespace acct.service
 
         }
 
-        public IQueryable<Quotation> GetByFilter(List<Order.StatusOptions> statusList, int? CustomerId,
+        public IQueryable<Quotation> GetByFilter( int? CustomerId,
             DateRange.DateRangeFilter DateFilter = DateRange.DateRangeFilter.ThisMonth)
         {
 
-            return repo.GetByFilter(statusList, CustomerId, DateFilter);
+            return repo.GetByFilter(CustomerId, DateFilter);
 
         }
 
